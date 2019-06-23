@@ -98,10 +98,10 @@
   --font-black: 900;
   --font-sm: 0.85rem;
   --font-base: 1rem;
-  --font-md: 1.125rem;
+  --font-md: 1.25rem;
   --font-lg: 1.5rem;
   --font-xl: 2rem;
-  --font-2xl: 4.5rem;
+  --font-2xl: 5rem;
   // Borders and Shadows
   --radius-subtle: 0.25rem;
   --radius-rounded: 0.5rem;
@@ -119,17 +119,29 @@
   --shadow-deep-lg: 0 15px 25px rgba(0, 0, 0, 0.15),
     0 5px 10px rgba(0, 0, 0, 0.05);
   --shadow-deep-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+  // Sizing
+  --max-width: 1200px;
+
   // Set Defaults
   color: var(--neutral900);
-  background-color: var(--neutral100);
+  background-color: var(--neutral050);
 }
 
 body {
   font-family: var(--font-stack);
 }
 
-body div > * {
+body > * {
   box-sizing: border-box;
+}
+
+body > section:not(#hero) {
+  box-sizing: content-box;
+
+  > * {
+    box-sizing: border-box;
+  }
 }
 
 a.button {
@@ -140,8 +152,8 @@ a.button {
   padding: 0.75rem 1rem;
   text-transform: uppercase;
   // box-shadow: var(--shadow-deep-sm);
-  background-color: var(--primary300);
-  color: var(--neutral050);
+  background-color: var(--neutral050);
+  color: var(--neutral900);
   font-weight: var(--font-semibold);
   text-decoration: none;
   border-radius: var(--radius-subtle);
@@ -165,24 +177,38 @@ a.button {
     padding-right: 0;
   }
 
-  // &.primary {
-  //   background-color: var(--neutral900);
-  //   color: var(--neutral050);
-  //   &:focus, &:hover {
-  //     background-color: var(--neutral800);
-  //   }
-  // }
+  &.image {
+    padding: 0;
+    background-color: transparent;
+
+    img {
+      object-fit: cover;
+      border-radius: var(--radius-subtle);
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  &.primary {
+    background-color: var(--primary300);
+    color: var(--neutral050);
+
+    &:focus, &:hover {
+      // background-color: var(--neutral800);
+    }
+  }
 
   svg {
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
     width: 1.25rem;
     position: relative;
     z-index: 0;
+
     .primary {
-      fill: var(--neutral900);
+      fill: var(--neutral300);
     }
     .secondary {
-      fill: var(--neutral700);
+      fill: var(--neutral050);
     }
   }
 

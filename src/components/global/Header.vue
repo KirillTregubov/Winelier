@@ -1,5 +1,6 @@
 <template>
   <header id="header">
+  <!-- <header id="header" :class="{isSticky: isSticky, sticky: sticky, hiding: hiding}"> -->
     <nav>
       <ul>
         <li class="left"><a href=""><img class="logo" src="@/assets/img/logo.png" alt="Winelier Logo"></a></li>
@@ -16,10 +17,49 @@
 </template>
 
 <script>
-import Icon from "@/components/icons/Icon.vue";
+import Icon from '@/components/icons/Icon.vue'
 
 export default {
-  name: "main-header",
+  name: 'main-header',
+  data () {
+    return {
+      hiding: false,
+      sticky: false,
+      scrollPosition: 0
+    }
+  },
+  // props: {
+  //   isSticky: {
+  //     type: Boolean,
+  //     default: false
+  //   }
+  // },
+  // methods: {
+  //   onScroll () {
+  //     const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
+  //     let scrollPos = 500
+
+  //     if (currentScrollPosition <= scrollPos && this.sticky === true) {
+  //       this.hiding = true
+  //       setTimeout(() => {
+  //         this.sticky = false
+  //         this.hiding = false
+  //       }, 500)
+  //     } else if (currentScrollPosition === scrollPos && this.scrollPosition > currentScrollPosition) {
+  //       this.sticky = false
+  //       this.hiding = true
+  //     } else if (currentScrollPosition > scrollPos || (currentScrollPosition === scrollPos && this.scrollPosition < currentScrollPosition)) {
+  //       this.sticky = true
+  //       this.hiding = false
+  //     }
+
+  //     this.scrollPosition = currentScrollPosition
+  //   }
+  // },
+  // mounted () {
+  //   console.log(this.isSticky)
+  //   if (this.isSticky) window.addEventListener('scroll', this.onScroll)
+  // },
   components: {
     Icon
   }
@@ -29,22 +69,65 @@ export default {
 <style lang="scss">
 img.logo {
   width: 8rem;
-  // object-fit: cover;
 }
 
 svg {
   width: 1.5rem;
-  
+
   &.left {
     margin-right: 0.5rem;
   }
 }
 
 #header {
-  position: sticky;
-  top: 0;
   padding: 2rem 5rem;
   font-weight: var(--font-bold) !important;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: var(--neutral100);
+  z-index: 2;
+
+  // &.isSticky {
+  //   display: none;
+  // }
+
+  // &.sticky {
+  //   display: block;
+  //   position: fixed;
+  //   top: 0;
+  //   background-color: var(--neutral100);
+  //   animation-name: slideDown;
+  //   animation-duration: 0.5s;
+  // }
+
+  // &.hiding {
+  //   opacity: 0;
+  //   animation-name: slideUp;
+  //   animation-duration: 0.5s;
+  // }
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0.6;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0.6;
+        transform: translateY(-100%);
+    }
 }
 
 ul {
@@ -53,7 +136,7 @@ ul {
 
   li {
     margin-left: 2rem;
-    
+
     &.left {
       margin: 0 auto 0 0;
     }
