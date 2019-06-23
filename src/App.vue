@@ -96,6 +96,7 @@
   --font-semibold: 600;
   --font-bold: 700;
   --font-black: 900;
+  --font-xs: 0.70rem;
   --font-sm: 0.85rem;
   --font-base: 1rem;
   --font-md: 1.25rem;
@@ -132,14 +133,14 @@ body {
   font-family: var(--font-stack);
 }
 
-body > * {
+body * {
   box-sizing: border-box;
 }
 
 body > section:not(#hero) {
   box-sizing: content-box;
 
-  > * {
+  * {
     box-sizing: border-box;
   }
 }

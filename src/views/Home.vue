@@ -32,19 +32,19 @@
       </div>
     </section>
     <section id="content">
-      <div class="category-container">
-          <h2>Or browse by province</h2>
-          <div class="list-container">
-            <div class="list-item" :key="province.id" v-for="province in provinceArray">
-              <a href="" class="button image"><img :src="getProvinceImg(province)" alt=""></a>
-              <h2>{{ province }}</h2>
-            </div>
+      <div class="province-container">
+        <h2>Or browse by province</h2>
+        <div class="list-container">
+          <div class="list-item" :key="province.id" v-for="province in provinceArray">
+            <a href="" class="button image"><img :src="getProvinceImg(province)" alt=""></a>
+            <h2>{{ province }}</h2>
           </div>
         </div>
-      <div class="title container">
+      </div>
+      <div class="monthly-container">
         <h1>Wineries of the Month</h1>
         <div class="winery-list-horizontal">
-          <div class="winery-card" :key="winery.id" v-for="winery in wineriesOfTheMonth">
+          <div class="winery-card compact" :key="winery.id" v-for="winery in monthlyWineries">
             <div class="image-container">
               <img src="@/assets/img/winery.png" alt="Winery Image">
             </div>
@@ -56,13 +56,30 @@
                 </div>
                 <h3>{{winery.name}}</h3>
                 <div class="bottom-bar">
-                  <Icon name="location-pin" /> {{printAddress(winery.address)}}
+                  <Icon name="location-pin" />
+                  <h4>{{printAddress(winery.address)}}</h4>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
+      </div>
+      <div class="article-container">
+        <h1>Featured Article</h1>
+        <div class="featured-article">
+          <div class="image-container">
+            <img src="@/assets/img/blog.png" alt="Blog Header">
+          </div>
+          <div class="info-container">
+            <h1>{{ featuredBlog.title }}</h1>
+            <h2>{{ featuredBlog.synopsis }}</h2>
+            <div class="date">
+              <Icon name="calendar-date" />
+              <h3>{{ featuredBlog.date }}</h3>
+            </div>
+            <a href="" class="button primary">Read Article</a>
+          </div>
+        </div>
       </div>
     </section>
     <footer>
@@ -80,14 +97,15 @@ export default {
   data () {
     return {
       provinceArray: ['Ontario', 'British Columbia', 'Quebec', 'Alberta', 'Nova Scotia', 'Saskatchewan', 'New Brunswick', 'Manitoba'],
-      wineriesOfTheMonth: [{ name: 'Alton Farms Estate Winery', address: { province: 'Ontario' } },
+      monthlyWineries: [{ name: 'Alton Farms Estate Winery', address: { province: 'Ontario' } },
         { name: 'Alton Farms Estate Winery', address: { province: 'Alberta' } },
-        { name: 'Alton Farms Estate Winery', address: { province: 'Ontario' } },
-        {name: 'Alton Farms Estate Winery', address: { province: 'Quebec' } }]
+        { name: 'Alton Farms Estate Winery', address: { province: 'British Columbia' } },
+        { name: 'Alton Farms Estate Winery', address: { province: 'Quebec' } }],
+      featuredBlog: { title: 'Fourth of July Fare: Slow-Cooked Ribs and Stone Fruit Salad', synopsis: 'At the Butcher\'s Table, chef Morgan Mueller embraces summer with beef ribs and prosciutto-topped peaches; we pick 18 Syrahs and sparklers to pair', date: 'Jun 21, 2019' }
     }
   },
   methods: {
-    printAddress(address) {
+    printAddress (address) {
       return 'Street, ' + 'Town, ' + address.province
     },
     getProvinceImg (province) {
@@ -103,30 +121,83 @@ export default {
 </script>
 
 <style lang="scss">
-div.winery-card {
+div.featured-article {
+  display: flex;
+  width: 100%;
+  border-radius: var(--radius-rounded);
+  box-shadow: var(--shadow-deep-md);
+  overflow: hidden;
+
+  div.image-container {
+    width: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  div.info-container {
+    width: 50%;
+    padding: 3rem;
+
+    h1 {
+      line-height: 1.25;
+      font-size: var(--font-xl);
+    }
+    
+    h2 {
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+      font-weight: var(--font-semibold);
+      color: var(--neutral400);
+    }
+
+    div.date {
+      display: flex;
+      align-items: center;
+    }
+
+    svg {
+      margin-right: 0.5rem;
+
+      .primary {
+        fill: var(--neutral200);
+      }
+
+      .secondary {
+        fill: var(--neutral400);
+      }
+    }
+  }
+}
+
+div.winery-card.compact {
   max-width: 20rem;
   display: inline-block;
   margin: 1rem;
 
   div.image-container {
-    max-width: inherit;
-
     img {
       width: 100%;
-      height: inherit;
+      height: 100%;
       object-fit: cover;
       border-radius: var(--radius-subtle);
+      box-shadow: var(--shadow-deep-sm);
     }
   }
 
   div.info-container {
     position: relative;
     margin-top: -4rem;
-    padding: 0 1rem;
+    padding: 0 0.75rem;
 
     div.info-inner {
       border-radius: var(--radius-subtle);
-      background-color: var(--neutral100);
+      background-color: var(--neutral050);
+      border: 1px solid var(--neutral100);
+      box-shadow: var(--shadow-deep-sm);
       padding: 1rem;
 
       > :not(:last-child) {
@@ -138,12 +209,32 @@ div.winery-card {
         align-items: center;
       }
 
+      h3 {
+        font-weight: var(--font-semibold);
+        font-size: var(--font-md);
+      }
+
       div.bottom-bar {
         display: flex;
         align-items: center;
 
         svg {
           margin-right: 0.5rem;
+          width: 1rem;
+
+          .primary {
+            fill: var(--neutral200);
+          }
+
+          .secondary {
+            fill: var(--neutral400);
+          }
+        }
+
+        h4 {
+          font-weight: var(--font-normal);
+          font-size: var(--font-sm);
+          color: var(--neutral400);
         }
       }
 
@@ -151,7 +242,7 @@ div.winery-card {
         display: inline-block;
         margin-right: 0.5rem;
         padding: 0.25rem 0.5rem 0.2rem 0.5rem;
-        font-size: var(--font-sm);
+        font-size: var(--font-xs);
         font-weight: var(--font-bold);
         letter-spacing: 0.05rem;
         line-height: 1;
@@ -220,18 +311,6 @@ section {
   padding: 2rem 6rem;
   max-width: var(--max-width);
   margin: 0 auto;
-
-  .container {
-    padding-bottom: 5rem;
-  }
-
-  .container-distinct {
-    padding-bottom: 3.5rem;
-  }
-
-  :last-child {
-    padding-bottom: 0;
-  }
 }
 
 h1 {
@@ -241,8 +320,10 @@ h1 {
 }
 
 section#content {
+  padding-top: 2.5rem;
+
   > div:not(:last-child) {
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
   }
 
   div.winery-list-horizontal {
@@ -260,10 +341,11 @@ section#content {
 }
 
 section#search {
+  position: relative;
   margin-top: -4.5rem;
   background-color: var(--neutral050);
   border-radius: var(--radius-rounded);
-  position: relative;
+  box-shadow: var(--shadow-deep-lg);
 }
 
 section#hero {
@@ -276,7 +358,7 @@ section#hero {
   background-size: 100vw 100vh;
   background-size: cover;
   // text-shadow: 0 0 50px hsla(0, 0%, 0%, 0.2);
-  
+
   > div.content {
     padding: 7.5rem 0 0 0;
     max-width: var(--max-width);
@@ -342,7 +424,7 @@ div.search-container {
   }
 }
 
-div.category-container {
+div.province-container {
 
   h2 {
     margin-bottom: 1rem;
@@ -359,6 +441,7 @@ div.category-container {
       a.button.image {
         width: calc((var(--max-width) - 7rem) / 8);
         height: 4rem;
+        box-shadow: var(--shadow-deep-sm);
       }
 
       h2 {
