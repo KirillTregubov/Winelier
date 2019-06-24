@@ -99,8 +99,11 @@
   --font-xs: 0.70rem;
   --font-sm: 0.85rem;
   --font-base: 1rem;
-  --font-md: 1.25rem;
-  --font-lg: 1.5rem;
+  --font-md: 1.15rem;
+  --font-lg: 1.25rem;
+  --letters-spread: 0.025rem;
+  --letters-wide: 0.05rem;
+  // --font-lg: 1.5rem;
   --font-xl: 2rem;
   --font-2xl: 5rem;
   // Borders and Shadows
@@ -139,10 +142,6 @@ body * {
 
 body > section:not(#hero) {
   box-sizing: content-box;
-
-  * {
-    box-sizing: border-box;
-  }
 }
 
 a.button {
@@ -153,14 +152,14 @@ a.button {
   padding: 0.75rem 1rem;
   text-transform: uppercase;
   // box-shadow: var(--shadow-deep-sm);
+  border-radius: var(--radius-subtle);
   background-color: var(--neutral050);
   color: var(--neutral900);
+  font-size: var(--font-base);
   font-weight: var(--font-semibold);
+  letter-spacing: var(--letters-spread);
   text-decoration: none;
-  border-radius: var(--radius-subtle);
   text-align: center;
-  text-decoration: none;
-  font-size: 1rem;
   user-select: none;
   transition: all 0.2s ease;
 
@@ -192,10 +191,19 @@ a.button {
 
   &.primary {
     background-color: var(--primary300);
-    color: var(--neutral050);
+    color: var(--primary800);
 
     &:focus, &:hover {
       // background-color: var(--neutral800);
+    }
+
+    svg {
+      .primary {
+        fill: var(--primary200);
+      }
+      .secondary {
+        fill: var(--primary700);
+      }
     }
   }
 
@@ -206,10 +214,10 @@ a.button {
     z-index: 0;
 
     .primary {
-      fill: var(--neutral300);
+      fill: var(--neutral500);
     }
     .secondary {
-      fill: var(--neutral050);
+      fill: var(--neutral100);
     }
   }
 

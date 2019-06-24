@@ -28,38 +28,6 @@ export default {
       scrollPosition: 0
     }
   },
-  // props: {
-  //   isSticky: {
-  //     type: Boolean,
-  //     default: false
-  //   }
-  // },
-  // methods: {
-  //   onScroll () {
-  //     const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
-  //     let scrollPos = 500
-
-  //     if (currentScrollPosition <= scrollPos && this.sticky === true) {
-  //       this.hiding = true
-  //       setTimeout(() => {
-  //         this.sticky = false
-  //         this.hiding = false
-  //       }, 500)
-  //     } else if (currentScrollPosition === scrollPos && this.scrollPosition > currentScrollPosition) {
-  //       this.sticky = false
-  //       this.hiding = true
-  //     } else if (currentScrollPosition > scrollPos || (currentScrollPosition === scrollPos && this.scrollPosition < currentScrollPosition)) {
-  //       this.sticky = true
-  //       this.hiding = false
-  //     }
-
-  //     this.scrollPosition = currentScrollPosition
-  //   }
-  // },
-  // mounted () {
-  //   console.log(this.isSticky)
-  //   if (this.isSticky) window.addEventListener('scroll', this.onScroll)
-  // },
   components: {
     Icon
   }
@@ -87,25 +55,6 @@ svg {
   top: 0;
   background-color: var(--neutral100);
   z-index: 2;
-
-  // &.isSticky {
-  //   display: none;
-  // }
-
-  // &.sticky {
-  //   display: block;
-  //   position: fixed;
-  //   top: 0;
-  //   background-color: var(--neutral100);
-  //   animation-name: slideDown;
-  //   animation-duration: 0.5s;
-  // }
-
-  // &.hiding {
-  //   opacity: 0;
-  //   animation-name: slideUp;
-  //   animation-duration: 0.5s;
-  // }
 }
 
 @keyframes slideDown {
