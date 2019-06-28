@@ -7,11 +7,14 @@
     <CalendarDate v-else-if="name === 'calendar-date'" />
     <ChevronDown v-else-if="name === 'chevron-down'" />
     <ChevronRight v-else-if="name === 'chevron-right'" />
+    <Dashboard v-else-if="name === 'dashboard'" />
     <Important v-else-if="name === 'important'" />
     <LocationPin v-else-if="name === 'location-pin'" />
     <Search v-else-if="name === 'search'" />
+    <ShoppingBag v-else-if="name === 'shopping-bag'" />
     <Star v-else-if="name === 'star'" />
     <UserCircle v-else-if="name === 'user-circle'" />
+    <UserGroup v-else-if="name === 'user-group'" />
   </svg>
 </template>
 
@@ -23,11 +26,14 @@ import BookOpen from '@/components/icons/book-open.vue'
 import CalendarDate from '@/components/icons/calendar-date.vue'
 import ChevronDown from '@/components/icons/chevron-down.vue'
 import ChevronRight from '@/components/icons/chevron-right.vue'
+import Dashboard from '@/components/icons/dashboard.vue'
 import Important from '@/components/icons/important.vue'
 import LocationPin from '@/components/icons/location-pin.vue'
 import Search from '@/components/icons/search.vue'
+import ShoppingBag from '@/components/icons/shopping-bag.vue'
 import Star from '@/components/icons/star.vue'
 import UserCircle from '@/components/icons/user-circle.vue'
+import UserGroup from '@/components/icons/user-group.vue'
 
 export default {
   name: 'vue-svg',
@@ -45,11 +51,14 @@ export default {
     CalendarDate,
     ChevronDown,
     ChevronRight,
+    Dashboard,
     Important,
     LocationPin,
     Search,
+    ShoppingBag,
     Star,
-    UserCircle
+    UserCircle,
+    UserGroup
   }
 }
 </script>

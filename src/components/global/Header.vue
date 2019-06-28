@@ -39,14 +39,6 @@ img.logo {
   width: 8rem;
 }
 
-svg {
-  width: 1.5rem;
-
-  &.left {
-    margin-right: 0.5rem;
-  }
-}
-
 #header {
   padding: 2rem 5rem;
   font-weight: var(--font-bold) !important;
@@ -97,6 +89,14 @@ ul {
     a {
       display: flex;
       align-items: center;
+
+      svg {
+        width: 1.5rem;
+
+        &.left {
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 }
