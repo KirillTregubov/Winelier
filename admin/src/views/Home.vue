@@ -2,19 +2,32 @@
   <body id="home">
     <nav class="sidebar">
       <ul>
-        <li><router-link to="/dashboard/" exact>
+        <li><router-link :to="{ name: 'dashboard' }" exact replace>
           <Icon name="dashboard" />
           Dashboard
         </router-link></li>
         <li class="title">Main</li>
-        <li><router-link to="/dashboard/users">
-          <Icon name="user-group" />
-          Users
-        </router-link></li>
-        <li><a>
+        <li :class="{ 'dropdown-active': dropdown.users }">
+          <div class="link">
+            <router-link :to="{ name: 'users' }" replace>
+              <Icon name="user-group" />
+              Users
+            </router-link>
+            <div class="dropdown-button" @click="dropdown.users = !dropdown.users">
+              <Icon :name="dropdown.users ? 'chevron-up' : 'chevron-down' "/>
+            </div>
+          </div>
+          <ul :class="{ active: dropdown.users }">
+            <li><router-link :to="{ name: 'consumers' }" replace>Consumers</router-link></li>
+            <li><router-link :to="{ name: 'managers' }" replace>Winery Managers</router-link></li>
+            <li><router-link :to="{ name: 'writers' }" replace>Blog Writers</router-link></li>
+            <li><router-link :to="{ name: 'admins' }" replace>Admins</router-link></li>
+          </ul>
+        </li>
+        <li><router-link :to="{ name: 'featured' }" exact replace>
           <Icon name="star" />
           Featured
-        </a></li>
+        </router-link></li>
         <li class="title">Content</li>
         <li><a>
           <Icon name="location-pin" />
@@ -40,32 +53,14 @@
 </template>
 
 <script>
-import Api from '@/services/Api.js'
 import Icon from '@/components/icons/Icon.vue'
 
 export default {
   name: 'home',
   data () {
     return {
-      users: '',
-      serverErrors: ''
+      dropdown: { users: false }
     }
-  },
-  methods: {
-    getUsers () {
-      Api.getUsers().then((response) => {
-        if (response.data.status === 'success') {
-          this.users = response.data.content
-        } else {
-          console.log(response.data.content)
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  },
-  created () {
-    // this.getUsers()
   },
   components: {
     Icon
@@ -85,20 +80,32 @@ nav.sidebar {
   user-select: none;
 
   ul {
-    padding: 3rem 3rem 2rem 2rem;
+    padding: 2rem;
 
     li {
       font-size: var(--font-base);
-      padding-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      width: 11rem;
 
       &.title {
-        padding-top: 1.75rem;
-        padding-bottom: 1.25rem;
+        margin-top: 1.25rem;
+        margin-bottom: 0.25rem;
         color: var(--neutral300);
         font-size: var(--font-sm);
         font-weight: var(--font-semibold);
         letter-spacing: 0.05rem;
         text-transform: uppercase;
+      }
+
+      &.dropdown-active {
+        background-color: var(--neutral700);
+        border-radius: var(--radius-subtle);
+      }
+
+      > div.link {
+        display: flex;
+        align-items: center;
       }
 
       a {
@@ -110,11 +117,11 @@ nav.sidebar {
 
           svg {
             .primary {
-              fill: var(--primary300) !important;
+              fill: var(--primary300);
             }
 
             .secondary {
-              fill: var(--primary050) !important;
+              fill: var(--primary050);
             }
           }
         }
@@ -146,6 +153,43 @@ nav.sidebar {
           }
         }
       }
+
+      .dropdown-button {
+        margin-left: auto;
+
+        svg {
+          width: 1.25rem;
+
+          .primary {
+            fill: var(--neutral400);
+          }
+
+          .secondary {
+            fill: var(--neutral050);
+          }
+        }
+
+        &:hover {
+          svg {
+            .secondary {
+              fill: var(--primary300);
+            }
+          }
+        }
+      }
+
+      ul {
+        padding: 1rem 0 0 0.75rem;
+        display: none;
+
+        &.active {
+          display: block;
+        }
+
+        a {
+          width: auto;
+        }
+      }
     }
   }
 }
@@ -153,5 +197,6 @@ nav.sidebar {
 section {
   display: inline-block;
   flex: 1;
+  margin: 2rem;
 }
 </style>

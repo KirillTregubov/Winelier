@@ -7,6 +7,7 @@
     <CalendarDate v-else-if="name === 'calendar-date'" />
     <ChevronDown v-else-if="name === 'chevron-down'" />
     <ChevronRight v-else-if="name === 'chevron-right'" />
+    <ChevronUp v-else-if="name === 'chevron-up'" />
     <Dashboard v-else-if="name === 'dashboard'" />
     <Important v-else-if="name === 'important'" />
     <LocationPin v-else-if="name === 'location-pin'" />
@@ -26,6 +27,7 @@ import BookOpen from '@/components/icons/book-open.vue'
 import CalendarDate from '@/components/icons/calendar-date.vue'
 import ChevronDown from '@/components/icons/chevron-down.vue'
 import ChevronRight from '@/components/icons/chevron-right.vue'
+import ChevronUp from '@/components/icons/chevron-up.vue'
 import Dashboard from '@/components/icons/dashboard.vue'
 import Important from '@/components/icons/important.vue'
 import LocationPin from '@/components/icons/location-pin.vue'
@@ -51,6 +53,7 @@ export default {
     CalendarDate,
     ChevronDown,
     ChevronRight,
+    ChevronUp,
     Dashboard,
     Important,
     LocationPin,

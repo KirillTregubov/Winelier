@@ -636,7 +636,7 @@ div.badge {
   padding: 0.25rem 0.5rem 0.2rem 0.5rem;
   border-radius: var(--radius-rounded);
   background-color: var(--primary200);
-  color: var(--primary600);
+  color: var(--primary800);
   font-size: var(--font-xs);
   font-weight: var(--font-bold);
   letter-spacing: var(--letters-wide);
@@ -645,7 +645,7 @@ div.badge {
 
   &.secondary {
     background-color: var(--yellow300);
-    color: var(--yellow800);
+    color: var(--yellow900);
   }
 }
 

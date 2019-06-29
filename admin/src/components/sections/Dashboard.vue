@@ -1,6 +1,7 @@
 <template>
   <section>
-    Dashboard
+    <h1>Dashboard</h1>
+    <a href="https://analytics.google.com/analytics/web/" target="_blank">Go to Google Analytics</a>
   </section>
 </template>
 
@@ -10,6 +11,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 </style>

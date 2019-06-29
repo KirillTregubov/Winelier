@@ -3,7 +3,13 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Authentication from './views/Authentication.vue'
 import Dashboard from './components/sections/Dashboard.vue'
-import Users from './components/sections/Users.vue'
+import UsersContainer from './components/users/UsersContainer.vue'
+import Users from './components/users/Users.vue'
+import Consumers from './components/users/Consumers.vue'
+import Managers from './components/users/Managers.vue'
+import Writers from './components/users/Writers.vue'
+import Admins from './components/users/Admins.vue'
+import Featured from './components/sections/Featured.vue'
 
 Vue.use(Router)
 
@@ -19,17 +25,45 @@ const router = new Router({
       },
       children: [
         {
-          // UserProfile will be rendered inside User's <router-view>
-          // when /user/:id/profile is matched
           path: '',
-          nmame: 'dashboard',
+          name: 'dashboard',
           component: Dashboard
         },
         {
-          // UserPosts will be rendered inside User's <router-view>
-          // when /user/:id/posts is matched
           path: 'users',
-          component: Users
+          component: UsersContainer,
+          children: [
+            {
+              path: '',
+              name: 'users',
+              component: Users
+            },
+            {
+              path: 'consumers',
+              name: 'consumers',
+              component: Consumers
+            },
+            {
+              path: 'managers',
+              name: 'managers',
+              component: Managers
+            },
+            {
+              path: 'writers',
+              name: 'writers',
+              component: Writers
+            },
+            {
+              path: 'admins',
+              name: 'admins',
+              component: Admins
+            }
+          ]
+        },
+        {
+          path: 'featured',
+          name: 'featured',
+          component: Featured
         }
       ]
     },
