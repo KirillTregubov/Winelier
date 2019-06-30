@@ -9,13 +9,11 @@
         <li class="title">Main</li>
         <li :class="{ 'dropdown-active': dropdown.users }">
           <div class="link">
-            <router-link :to="{ name: 'users' }" replace>
+            <router-link :to="{ name: 'users' }" replace @click.native="dropdown.users = true">
               <Icon name="user-group" />
               Users
             </router-link>
-            <div class="dropdown-button" @click="dropdown.users = !dropdown.users">
-              <Icon :name="dropdown.users ? 'chevron-up' : 'chevron-down' "/>
-            </div>
+            <Icon class="dropdown-button" :name="dropdown.users ? 'chevron-up' : 'chevron-down' " @click.native="dropdown.users = !dropdown.users"/>
           </div>
           <ul :class="{ active: dropdown.users }">
             <li><router-link :to="{ name: 'consumers' }" replace>Consumers</router-link></li>
@@ -80,17 +78,17 @@ nav.sidebar {
   user-select: none;
 
   ul {
-    padding: 2rem;
+    padding: 1.5rem;
 
     li {
       font-size: var(--font-base);
       margin-bottom: 0.5rem;
-      padding: 0.5rem;
       width: 11rem;
 
       &.title {
-        margin-top: 1.25rem;
-        margin-bottom: 0.25rem;
+        padding-left: 0.5rem;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
         color: var(--neutral300);
         font-size: var(--font-sm);
         font-weight: var(--font-semibold);
@@ -111,6 +109,8 @@ nav.sidebar {
       a {
         display: flex;
         align-items: center;
+        padding: 0.5rem;
+        flex: 1;
 
         &:hover {
           color: var(--primary300) !important;
@@ -139,55 +139,41 @@ nav.sidebar {
             }
           }
         }
-
-        svg {
-          width: 1.25rem;
-          margin-right: 0.5rem;
-
-          .primary {
-            fill: var(--neutral400);
-          }
-
-          .secondary {
-            fill: var(--neutral050);
-          }
-        }
       }
 
-      .dropdown-button {
-        margin-left: auto;
+      svg {
+        width: 1.25rem;
+        margin-right: 0.5rem;
 
-        svg {
-          width: 1.25rem;
-
-          .primary {
-            fill: var(--neutral400);
-          }
-
-          .secondary {
-            fill: var(--neutral050);
-          }
+        .primary {
+          fill: var(--neutral400);
         }
 
-        &:hover {
-          svg {
-            .secondary {
+        .secondary {
+          fill: var(--neutral050);
+        }
+
+        &.dropdown-button:hover {
+          .secondary {
               fill: var(--primary300);
             }
-          }
         }
       }
 
       ul {
-        padding: 1rem 0 0 0.75rem;
+        padding: 0.5rem 0 0.25rem 0.75rem;
         display: none;
 
         &.active {
           display: block;
         }
 
-        a {
+        li, a {
           width: auto;
+        }
+
+        li {
+          margin-bottom: 0.25rem;
         }
       }
     }
@@ -197,6 +183,8 @@ nav.sidebar {
 section {
   display: inline-block;
   flex: 1;
-  margin: 2rem;
+  padding: 2rem;
+  height: 100%;
+  overflow: auto;
 }
 </style>

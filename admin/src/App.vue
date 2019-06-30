@@ -131,16 +131,16 @@
   background-color: var(--neutral050);
 }
 
+body {
+  overflow: hidden;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
 body, input {
   font-family: var(--font-stack);
-}
-
-body * {
-  box-sizing: border-box;
-}
-
-body > section:not(#hero) {
-  box-sizing: content-box;
 }
 
 h1 {
@@ -148,6 +148,12 @@ h1 {
   color: var(--neutral900);
   font-size: var(--font-xl);
   font-weight: var(--font-bold);
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: var(--font-lg);
+  font-weight: var(--font-semibold);
 }
 
 h3 {
@@ -212,6 +218,11 @@ table {
       padding: 1.25rem 2rem;
       text-align: left;
       vertical-align: middle;
+      overflow: hidden;
+
+      &.condensed {
+        max-width: 400px;
+      }
     }
   }
 }
@@ -228,5 +239,69 @@ div.badge {
   letter-spacing: var(--letters-wide);
   line-height: 1;
   text-transform: uppercase;
+}
+
+a.button {
+  margin: 0.5rem 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  text-transform: uppercase;
+  // box-shadow: var(--shadow-deep-sm);
+  border-radius: var(--radius-subtle);
+  background-color: var(--neutral200);
+  color: var(--neutral900);
+  font-size: var(--font-base);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--letters-spread);
+  text-decoration: none;
+  text-align: center;
+  user-select: none;
+  transition: all 0.2s ease;
+
+  &:focus, &:hover {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    // transform: translateY(2px);
+    // transform: scale(0.98);
+  }
+
+  &.primary {
+    background-color: var(--primary500);
+    color: var(--primary100);
+
+    &:focus, &:hover {
+      // background-color: var(--neutral800);
+    }
+
+    svg {
+      .primary {
+        fill: var(--primary300);
+      }
+      .secondary {
+        fill: var(--primary900);
+      }
+    }
+  }
+
+  svg {
+    margin-right: 0.5rem;
+    width: 1.25rem;
+    position: relative;
+    z-index: 0;
+
+    .primary {
+      fill: var(--neutral100);
+    }
+    .secondary {
+      fill: var(--neutral800);
+    }
+  }
+
+  .title {
+    font-size: var(--font-md);
+    font-weight: var(--font-bold);
+  }
 }
 </style>

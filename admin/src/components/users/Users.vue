@@ -11,7 +11,7 @@
           <th>Last Modified</th>
         </tr>
       </thead>
-      <tr @contextmenu.prevent="$refs.menu.open" :key="user.id" v-for="user in users" @click.prevent.stop="$refs.menu.open">
+      <tr :key="user.id" v-for="user in users" @contextmenu.prevent="$refs.menu.open" @click.prevent.stop="$refs.menu.open">
         <td>
           <div>{{ user.first_name }} {{user.last_name}}</div>
           <div class="secondary">{{ user.type }}</div>
