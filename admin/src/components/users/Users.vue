@@ -1,6 +1,9 @@
 <template>
-  <section>
-    <h1>All Users</h1>
+  <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
+    <div class="top-bar heading">
+      <h1>All Users</h1>
+      <a class="button"><Icon name="add" />Add</a>
+    </div>
     <h3>Click on a user's row for options related to the specific user.</h3>
     <table>
       <thead>
@@ -21,7 +24,7 @@
         <td>{{ user.modified_at }}</td>
       </tr>
     </table>
-    <vue-context ref="menu" :close-on-click="true">
+    <vue-context ref="menu" :close-on-click="true" @open="isMenuOpen = true" @close="isMenuOpen = false">
       <li>
         <a href="#" @click.prevent="onClick($event.target.innerText)">View Details</a>
       </li>
@@ -37,11 +40,13 @@
 
 <script>
 // import Api from '@/services/Api.js'
+import Icon from '@/components/icons/Icon.vue'
 
 export default {
   name: 'consumers',
   data () {
     return {
+      isMenuOpen: false,
       users: [{
         first_name: 'First',
         last_name: 'Last',
@@ -91,6 +96,9 @@ export default {
       else if (isSubscribed === 'removed') return 'Unsubscribed'
       else return 'Subscribed'
     }
+  },
+  components: {
+    Icon
   }
 }
 </script>

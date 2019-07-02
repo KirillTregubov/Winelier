@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
     <h1>Admins</h1>
     <h3>Click on a user's row for options related to the specific user.</h3>
     <table>
@@ -18,7 +18,7 @@
         <td>{{ user.modified_at }}</td>
       </tr>
     </table>
-    <vue-context ref="menu" :close-on-click="true">
+    <vue-context ref="menu" :close-on-click="true" @open="isMenuOpen = true" @close="isMenuOpen = false">
       <li>
         <a href="#" @click.prevent="onClick($event.target.innerText)">View Winery</a>
       </li>
@@ -37,6 +37,7 @@ export default {
   name: 'managers',
   data () {
     return {
+      isMenuOpen: false,
       users: [{
         first_name: 'First',
         last_name: 'Last',

@@ -186,5 +186,23 @@ section {
   padding: 2rem;
   height: 100%;
   overflow: auto;
+
+  div.top-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    &.heading {
+      margin-bottom: 1.5rem;
+    }
+
+    > * {
+      margin: 0;
+    }
+
+    a.button {
+      margin-left: auto;
+    }
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section @scroll="fixScroll()">
+  <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
     <h1>Featured</h1>
     <div class="container">
       <h2>Article</h2>
@@ -32,6 +32,7 @@
           <tr>
             <th>Name</th>
             <th>Manager</th>
+            <th>Tier</th>
             <th>Province</th>
             <th>Date Created</th>
             <th>Last Modified</th>
@@ -40,6 +41,7 @@
         <tr  :key="winery.id" v-for="winery in monthlyWineries" @contextmenu.prevent="$refs.menu.open($event, winery)" @click.prevent.stop="$refs.menu.open($event, winery)">
           <td>{{ winery.name }}</td>
           <td><div class="badge" :class="[ winery.manager != null ? 'exists' : '']">{{ winery.manager != null ? winery.manager : 'None' }}</div></td>
+          <td>{{ winery.tier }}</td>
           <td>{{ winery.address.province }}</td>
           <td>{{ winery.created_at }}</td>
           <td>{{ winery.modified_at }}</td>
@@ -56,6 +58,7 @@
           <tr>
             <th>Name</th>
             <th>Manager</th>
+            <th>Tier</th>
             <th>Province</th>
             <th>Date Created</th>
             <th>Last Modified</th>
@@ -64,6 +67,7 @@
         <tr  :key="winery.id" v-for="winery in popularWineries" @contextmenu.prevent="$refs.menu.open($event, winery)" @click.prevent.stop="$refs.menu.open($event, winery)">
           <td>{{ winery.name }}</td>
           <td><div class="badge" :class="[ winery.manager != null ? 'exists' : '']">{{ winery.manager != null ? winery.manager : 'None' }}</div></td>
+          <td>{{ winery.tier }}</td>
           <td>{{ winery.address.province }}</td>
           <td>{{ winery.created_at }}</td>
           <td>{{ winery.modified_at }}</td>
@@ -73,13 +77,19 @@
     <vue-context ref="menu" :close-on-click="true" @open="isMenuOpen = true" @close="isMenuOpen = false">
       <template slot-scope="child">
         <li>
-          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">View</a>
+          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">View on site</a>
+        </li>
+        <li v-if="child.data && child.data.author">
+          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">Edit Article</a>
+        </li>
+        <li v-else-if="child.data && (child.data.manager || child.data.manager == null)">
+          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">Edit Winery</a>
         </li>
         <li v-if="child.data && child.data.author">
           <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">View Writer</a>
         </li>
         <li v-else-if="child.data && (child.data.manager || child.data.manager == null)">
-          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">{{ child.data && !child.data.manager ? 'Add' : 'Edit' }} Manager</a>
+          <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">{{ child.data && !child.data.manager ? 'Add' : 'View' }} Manager</a>
         </li>
         <li v-if="child.data && child.data.author">
           <a href="#" @click.prevent="onClick($event.target.innerText, child.data)">Replace</a>
@@ -106,6 +116,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Ontario' },
           manager: null,
+          tier: 'VIP',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -113,6 +124,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Alberta' },
           manager: 'John Detail',
+          tier: 'VIP',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -120,6 +132,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'British Columbia' },
           manager: 'Alexander',
+          tier: 'VIP',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -127,6 +140,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Quebec' },
           manager: null,
+          tier: 'VIP',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         }
@@ -136,6 +150,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Ontario' },
           manager: null,
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -143,6 +158,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Alberta' },
           manager: 'James Smith',
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -150,6 +166,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'British Columbia' },
           manager: null,
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -157,6 +174,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Ontario' },
           manager: 'Erica Chow',
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -164,6 +182,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Manitoba' },
           manager: 'Billy Ray',
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         },
@@ -171,6 +190,7 @@ export default {
           name: 'Alton Farms Estate Winery',
           address: { province: 'Quebec' },
           manager: null,
+          tier: 'Premium',
           created_at: 'Jun 21, 2019',
           modified_at: 'Jul 4, 2019'
         }
@@ -189,11 +209,6 @@ export default {
     onClick (text, data) {
       alert(`You clicked ${text}!`)
       console.log(data)
-    },
-    fixScroll () {
-      if (this.isMenuOpen) {
-        this.$refs.menu.close()
-      }
     }
   },
   components: {
@@ -205,20 +220,6 @@ export default {
 <style lang="scss">
 div.container:not(:last-child) {
   margin-bottom: 2rem;
-
-  div.top-bar {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
-
-    > * {
-      margin: 0;
-    }
-
-    a.button {
-      margin-left: auto;
-    }
-  }
 }
 
 div.badge {

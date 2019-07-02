@@ -1,23 +1,24 @@
-CREATE TABLE 'users' (
+CREATE TABLE `users` (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   phone VARCHAR(15),
   password VARCHAR(50) NOT NULL,
-  type ENUM('Consumer', 'Winery Manager', 'Blog Writer', 'Admin') NOT NULL,
+  verification VARCHAR( 32 ) NOT NULL ,
+  type ENUM('Consumer', 'Winery Manager', 'Blog Writer', 'Admin') NOT NULL DEFAULT 'Consumer',
   description TEXT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   modified_at DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE 'newsletter_subscribers' (
+CREATE TABLE `newsletter_subscribers` (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL UNIQUE,
   email VARCHAR(100) NOT NULL UNIQUE,
   did_unsubscribe BOOLEAN DEFAULT 0,
   signed_up_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 
 CREATE TABLE 'billing_addresses' (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -51,12 +52,13 @@ CREATE TABLE 'featured_items' (
 CREATE TABLE 'wineries' (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   manager_id VARCHAR(255),
-  tier VARCHAR(100) NOT NULL,
+  tier ENUM('VIP', 'Premium', 'Regular') NOT NULL DEFAULT 'Regular',
   name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL,
   phone VARCHAR(15) NOT NULL,
   website VARCHAR(2083),
   image BLOB NOT NULL,
+  description TEXT NOT NULL,
   street_address VARCHAR(255) NOT NULL,
   town VARCHAR(100) NOT NULL,
   province VARCHAR(100) NOT NULL,
@@ -71,7 +73,7 @@ CREATE TABLE 'events' (
   name VARCHAR(100) NOT NULL,
   start_date DATETIME NOT NULL,
   end_date DATETIME NOT NULL,
-  content TEXT NOT NULL,
+  description TEXT NOT NULL,
   website VARCHAR(2083),
   image BLOB NOT NULL,
   street_address VARCHAR(255),
