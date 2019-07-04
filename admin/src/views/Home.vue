@@ -2,27 +2,27 @@
   <body id="home">
     <nav class="sidebar">
       <ul>
-        <li><router-link :to="{ name: 'dashboard' }" exact replace>
+        <li><router-link :to="{ name: 'dashboard' }" exact>
           <Icon name="dashboard" />
           Dashboard
         </router-link></li>
         <li class="title">Main</li>
         <li :class="{ 'dropdown-active': dropdown.users }">
           <div class="link">
-            <router-link :to="{ name: 'users' }" replace @click.native="dropdown.users = true">
+            <router-link :to="{ name: 'users' }" @click.native="dropdown.users = true">
               <Icon name="user-group" />
               Users
             </router-link>
-            <Icon class="dropdown-button" :name="dropdown.users ? 'chevron-up' : 'chevron-down' " @click.native="dropdown.users = !dropdown.users"/>
+            <Icon class="dropdown-button" :name="dropdown.users ? 'chevron-up' : 'chevron-down' " @click.native="dropdown.users = !dropdown.users" />
           </div>
           <ul :class="{ active: dropdown.users }">
-            <li><router-link :to="{ name: 'consumers' }" replace>Consumers</router-link></li>
-            <li><router-link :to="{ name: 'managers' }" replace>Winery Managers</router-link></li>
-            <li><router-link :to="{ name: 'writers' }" replace>Blog Writers</router-link></li>
-            <li><router-link :to="{ name: 'admins' }" replace>Admins</router-link></li>
+            <li><router-link :to="{ name: 'consumers' }">Consumers</router-link></li>
+            <li><router-link :to="{ name: 'managers' }">Winery Managers</router-link></li>
+            <li><router-link :to="{ name: 'writers' }">Blog Writers</router-link></li>
+            <li><router-link :to="{ name: 'admins' }">Admins</router-link></li>
           </ul>
         </li>
-        <li><router-link :to="{ name: 'featured' }" exact replace>
+        <li><router-link :to="{ name: 'featured' }" exact>
           <Icon name="star" />
           Featured
         </router-link></li>

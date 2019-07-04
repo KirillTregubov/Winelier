@@ -1,15 +1,16 @@
 CREATE TABLE `users` (
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  first_name VARCHAR(100) NOT NULL,
-  last_name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) NOT NULL UNIQUE,
-  phone VARCHAR(15),
-  password VARCHAR(50) NOT NULL,
-  verification VARCHAR( 32 ) NOT NULL ,
-  type ENUM('Consumer', 'Winery Manager', 'Blog Writer', 'Admin') NOT NULL DEFAULT 'Consumer',
-  description TEXT,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  modified_at DATETIME ON UPDATE CURRENT_TIMESTAMP
+  `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `first_name` VARCHAR(100) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `phone` VARCHAR(15),
+  `password` VARCHAR(50) NOT NULL,
+  `verification` VARCHAR( 32 ) NOT NULL,
+  `is_verified` BOOLEAN DEFAULT 0,
+  `type` ENUM('Consumer', 'Winery Manager', 'Blog Writer', 'Admin') NOT NULL DEFAULT 'Consumer',
+  `description` TEXT,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `newsletter_subscribers` (

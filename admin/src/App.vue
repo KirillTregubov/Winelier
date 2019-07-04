@@ -3,6 +3,9 @@
 </template>
 
 <style lang="scss">
+@import 'normalize-scss';
+@include normalize();
+
 @font-face {
   font-family: 'Proxima';
   font-weight: 400;
@@ -96,7 +99,7 @@
   --font-bold: 700;
   --font-black: 900;
   --font-xs: 0.70rem;
-  --font-sm: 0.8rem;
+  --font-sm: 0.85rem;
   --font-base: 1rem;
   --font-md: 1.15rem;
   --font-lg: 1.25rem;
@@ -139,8 +142,47 @@ body {
   }
 }
 
-body, input {
+body, input, select {
   font-family: var(--font-stack);
+}
+
+input, select {
+  box-sizing: border-box;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+div.inline-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20rem;
+
+  > div {
+    display: block;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary500);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spinner 1.2s linear infinite;
+  }
+}
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 h1 {
@@ -210,6 +252,10 @@ table {
         color: var(--neutral500);
         font-size: var(--font-sm);
         font-weight: var(--font-normal);
+      }
+
+      div.badge {
+        margin-left: 0;
       }
     }
 
@@ -302,6 +348,69 @@ a.button {
   .title {
     font-size: var(--font-md);
     font-weight: var(--font-bold);
+  }
+}
+
+a.inline {
+  display: inline-block;
+  position: relative;
+  color: var(--neutral800);
+  line-height: 1;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -1px;
+    left: 0;
+    background-color: var(--neutral200);
+    transform-origin: bottom right;
+    transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+  }
+
+  &:hover {
+    color: var(--neutral400);
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  }
+}
+
+label {
+  display: block;
+  color: var(--neutral600);
+  margin-bottom: 0.25em;
+}
+
+h5.error {
+  color: var(--primary500);
+  font-weight: var(--font-semibold);
+  transition: all 500ms linear;
+  animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  margin: 0 0 0.5rem 0;
+
+  &.active {
+    display: block;
+  }
+}
+
+@keyframes shake {
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(3px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-3px, 0, 0);
   }
 }
 </style>

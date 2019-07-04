@@ -6,8 +6,10 @@
     <BookOpen v-else-if="name === 'book-open'" />
     <CalendarDate v-else-if="name === 'calendar-date'" />
     <ChevronDown v-else-if="name === 'chevron-down'" />
+    <ChevronLeftCircle v-else-if="name === 'chevron-left-circle'" />
     <ChevronRight v-else-if="name === 'chevron-right'" />
     <ChevronUp v-else-if="name === 'chevron-up'" />
+    <CloseCircle v-else-if="name === 'close-circle'" />
     <Dashboard v-else-if="name === 'dashboard'" />
     <Important v-else-if="name === 'important'" />
     <LocationPin v-else-if="name === 'location-pin'" />
@@ -26,8 +28,10 @@ import ArrowThickUp from '@/components/icons/arrow-thick-up.vue'
 import BookOpen from '@/components/icons/book-open.vue'
 import CalendarDate from '@/components/icons/calendar-date.vue'
 import ChevronDown from '@/components/icons/chevron-down.vue'
+import ChevronLeftCircle from '@/components/icons/chevron-left-circle.vue'
 import ChevronRight from '@/components/icons/chevron-right.vue'
 import ChevronUp from '@/components/icons/chevron-up.vue'
+import CloseCircle from '@/components/icons/close-circle.vue'
 import Dashboard from '@/components/icons/dashboard.vue'
 import Important from '@/components/icons/important.vue'
 import LocationPin from '@/components/icons/location-pin.vue'
@@ -52,8 +56,10 @@ export default {
     BookOpen,
     CalendarDate,
     ChevronDown,
+    ChevronLeftCircle,
     ChevronRight,
     ChevronUp,
+    CloseCircle,
     Dashboard,
     Important,
     LocationPin,
