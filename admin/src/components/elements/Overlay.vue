@@ -1,29 +1,32 @@
 <template>
   <transition name="overlay">
-    <div id="overlay" v-show="isOpen">
+    <div id="overlay" v-if="isOpen">
       <form class="content">
         <div class="title">
           <h1>{{ capitalize(overlayType) }} {{ capitalize(dataType) }}</h1>
-          <div class="close" @click="close()">
+          <div class="close" @click="overlayType === 'create' ? close() : submit(true)">
             <Icon name="close-circle" size="1.6" />
             <h2>Close</h2>
           </div>
         </div>
-        <InputGroup v-model.trim="$v.firstName" name="First Name" placeholder="John" autocomplete="given-name" />
-        <InputGroup v-model.trim="$v.lastName" name="Last Name" placeholder="Doe" autocomplete="family-name" />
 
-        <InputGroup v-model.trim="$v.email" name="Email" placeholder="john@company.com" type="email" autocomplete="email" />
-        <InputGroup v-model.trim="$v.phone" name="Phone" placeholder="(416) 123-1234" type="tel" autocomplete="tel" />
+        <template v-if="dataType === 'user'">
+          <InputGroup v-model.trim="$v.firstName" name="First Name" placeholder="John" autocomplete="given-name" />
+          <InputGroup v-model.trim="$v.lastName" name="Last Name" placeholder="Doe" autocomplete="family-name" />
 
-        <InputGroup v-model.trim="$v.password" name="Password" placeholder="Password" type="password" autocomplete="new-password" />
-        <InputGroup v-model.trim="$v.repeatPassword" name="Repeat Password" placeholder="Password" type="password" autocomplete="new-password" />
-        <span class="container"><a class="inline" @click="generatePassword()">Generate secure password</a></span>
-        <!-- <pre>{{ $v.password }} {{ $v.repeatPassword }}</pre> -->
+          <InputGroup v-model.trim="$v.email" name="Email" placeholder="john@company.com" type="email" autocomplete="email" />
+          <InputGroup v-model.trim="$v.phone" name="Phone" placeholder="(416) 123-1234" type="tel" autocomplete="tel" />
 
-        <SelectGroup :value="type" name="User Type" placeholder="Select a type" :options="typeOptions" :error="computeTypeError" @select="type = $event" />
-        <TextAreaGroup v-show="type === 'Blog Writer'" class="full-width" name="Description" placeholder="Description of Blog Writer" @edit="description = $event" />
+          <InputGroup v-model.trim="$v.password" :name="overlayType === 'edit' ? 'New Password' : 'Password'" :placeholder="overlayType === 'edit' ? 'New Password' : 'Password'" type="password" autocomplete="new-password" />
+          <InputGroup v-model.trim="$v.repeatPassword" name="Repeat Password" :placeholder="overlayType === 'edit' ? 'New Password' : 'Password'" type="password" autocomplete="new-password" />
+          <span class="container"><a class="inline" @click="generatePassword()">Generate secure password</a></span>
 
-        <a class="button" @click="submit()"><Icon name="add-circle" />Create</a>
+          <SelectGroup :value="type" name="User Type" placeholder="Select a type" :options="typeOptions" @select="type = $event" />
+          <TextAreaGroup v-show="type === 'Blog Writer'" class="full-width" name="Description" placeholder="Description of Blog Writer" @edit="description = $event" />
+        </template>
+        <!-- <pre>{{ $v }}</pre> -->
+
+        <a class="button" @click="submit()"><Icon name="check" />{{ capitalize(overlayType) }}</a>
       </form>
     </div>
   </transition>
@@ -36,7 +39,6 @@ import InputGroup from '@/components/elements/InputGroup.vue'
 import SelectGroup from '@/components/elements/SelectGroup.vue'
 import TextAreaGroup from '@/components/elements/TextAreaGroup.vue'
 import { required, sameAs, minLength, email } from 'vuelidate/lib/validators'
-const isPhone = (value) => /^(?:\+?1[-.●]?)?\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/.test(value)
 
 export default {
   name: 'overlay',
@@ -45,18 +47,13 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
+      takenEmails: [],
       phone: '',
       password: '',
       repeatPassword: '',
-      type: '',
-      typeOptions: ['Consumer', 'Winery Manager', 'Blog Writer', 'Admin'],
-      typeError: false,
-      description: ''
-    }
-  },
-  computed: {
-    computeTypeError () {
-      return this.typeError && !this.type
+      type: 'Consumer',
+      description: '',
+      typeOptions: ['Consumer', 'Winery Manager', 'Blog Writer', 'Admin']
     }
   },
   validations: {
@@ -68,10 +65,15 @@ export default {
     },
     email: {
       required,
-      email
+      email,
+      available (email) {
+        return !this.takenEmails.includes(email)
+      }
     },
     phone: {
-      phone: isPhone
+      phone (phone) {
+        return /^(?:\+?1[-.●]?)?\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/.test(phone) || phone === ''
+      }
     },
     password: {
       required,
@@ -103,52 +105,109 @@ export default {
   methods: {
     close () {
       this.$emit('close')
+      window.removeEventListener('beforeunload', this.safeQuit)
+      setTimeout(() => {
+        this.reset()
+      }, 400)
     },
-    capitalize (string) {
-      return string.charAt(0).toUpperCase() + string.slice(1)
+    reset () {
+      this.$v.$reset()
+      this.firstName = ''
+      this.lastName = ''
+      this.email = ''
+      this.takenEmails = []
+      this.phone = ''
+      this.password = ''
+      this.repeatPassword = ''
+      this.type = 'Consumer'
+      this.description = ''
     },
     generatePassword () {
       this.password = Array(16).fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$').map(x => x[Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1) * (x.length + 1))]).join('')
       this.repeatPassword = this.password
+      this.$v.password.$touch()
+      this.$v.repeatPassword.$touch()
+      alert('Generated password is ' + this.password)
     },
-    submit () {
+    safeQuit (event) {
+      this.submit(true)
+      event.returnValue = 'Your progress will not be saved. Continue using dashboard?'
+    },
+    submit (isClosing) {
       if (this.overlayType === 'create') {
-        console.log('create')
-      } else if (this.overlayType === 'edit') {
-        console.log('edit')
-        let obj = {
-          id: this.oldData.id,
-          first_name: this.firstName,
-          last_name: this.lastName,
-          email: this.email,
-          phone: this.phone === '' ? null : this.phone,
-          // password have to provide a replace option
-          type: this.type,
-          description: this.description === '' ? null : this.description
+        // show which inputs are invalid
+        if (this.$v.$invalid) {
+          this.$v.$touch()
+        } else {
+          // create new user
+          let obj = {
+            first_name: this.firstName,
+            last_name: this.lastName,
+            email: this.email,
+            phone: this.phone === '' ? null : this.phone,
+            password: this.password,
+            type: this.type,
+            description: this.description === '' ? null : this.description
+          }
+          // submit
+          Api.createUser(obj).then((response) => {
+            if (response.data.status === 'success') {
+              this.close()
+              alert('User created successfully.')
+            } else if (response.data.status === 'email') {
+              this.takenEmails.push(this.email)
+            } else {
+              console.log(response)
+            }
+          })
         }
-        console.log(obj)
-        Api.editUser(obj).then((response) => {
+      } else if (this.overlayType === 'edit') {
+        // create new values
+        let obj
+        if (isClosing) {
+          obj = this.oldData
+        } else {
+          obj = {
+            id: this.oldData.id,
+            first_name: this.firstName,
+            last_name: this.lastName,
+            email: this.email,
+            phone: this.phone === '' ? null : this.phone,
+            password: this.password === '' ? null : this.password,
+            type: this.type,
+            description: this.description === '' ? null : this.description
+          }
+        }
+        // submit
+        Api.updateUser(obj).then((response) => {
           if (response.data.status === 'success') {
-            console.log(response)
+            this.close()
+            alert('User updated successfully.')
           } else {
             console.log(response)
           }
         })
       }
-
-      this.close()
+    },
+    capitalize (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
     }
   },
   updated () {
-    if (this.isOpen && this.overlayType === 'edit') {
-      if (this.oldData) {
-        this.firstName = this.oldData.first_name
-        this.lastName = this.oldData.last_name
-        this.email = this.oldData.email
-        this.phone = this.oldData.phone === null ? '' : this.oldData.phone
-        this.type = this.oldData.type
-        this.description = this.oldData.description === null ? '' : this.oldData.description
-      } else throw new Error('Error loading edit overlay!')
+    // insert existing user data
+    if (this.isOpen && this.overlayType === 'edit' && this.oldData) {
+      this.$v.$touch()
+      this.firstName = this.oldData.first_name
+      this.lastName = this.oldData.last_name
+      this.email = this.oldData.email
+      if (!this.oldData.phone) this.$v.phone.$reset()
+      else this.phone = this.oldData.phone
+      this.$v.password.$reset()
+      this.$v.repeatPassword.$reset()
+      this.type = this.oldData.type
+      this.description = this.oldData.description === null ? '' : this.oldData.description
+      // ensure data backup
+      window.addEventListener('beforeunload', this.safeQuit)
     }
   },
   components: {

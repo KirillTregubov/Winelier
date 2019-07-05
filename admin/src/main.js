@@ -4,11 +4,11 @@ import router from './router'
 import store from './store'
 import { VueContext } from 'vue-context'
 import Vuelidate from 'vuelidate'
-import VuePaginate from 'vue-paginate'
+import Paginate from 'vuejs-paginate'
 
 Vue.component('vue-context', VueContext)
 Vue.use(Vuelidate)
-Vue.use(VuePaginate)
+Vue.component('paginate', Paginate)
 
 Vue.config.productionTip = false
 

@@ -5,6 +5,7 @@
     <ArrowThickUp v-else-if="name === 'arrow-thick-up'" />
     <BookOpen v-else-if="name === 'book-open'" />
     <CalendarDate v-else-if="name === 'calendar-date'" />
+    <Check v-else-if="name === 'check'" />
     <ChevronDown v-else-if="name === 'chevron-down'" />
     <ChevronLeftCircle v-else-if="name === 'chevron-left-circle'" />
     <ChevronRight v-else-if="name === 'chevron-right'" />
@@ -27,6 +28,7 @@ import AddCircle from '@/components/icons/add-circle.vue'
 import ArrowThickUp from '@/components/icons/arrow-thick-up.vue'
 import BookOpen from '@/components/icons/book-open.vue'
 import CalendarDate from '@/components/icons/calendar-date.vue'
+import Check from '@/components/icons/check.vue'
 import ChevronDown from '@/components/icons/chevron-down.vue'
 import ChevronLeftCircle from '@/components/icons/chevron-left-circle.vue'
 import ChevronRight from '@/components/icons/chevron-right.vue'
@@ -55,6 +57,7 @@ export default {
     ArrowThickUp,
     BookOpen,
     CalendarDate,
+    Check,
     ChevronDown,
     ChevronLeftCircle,
     ChevronRight,

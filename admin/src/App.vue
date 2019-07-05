@@ -164,7 +164,7 @@ div.inline-loader {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 20rem;
+  height: 40rem;
 
   > div {
     display: block;
@@ -205,6 +205,67 @@ h3 {
   font-weight: var(--font-semibold);
 }
 
+div.pagination {
+  display: flex;
+  justify-content: center;
+
+  ul {
+    display: inline-flex;
+    transition: opacity 0.5s;
+    background-color: var(--neutral100);
+    border-radius: var(--radius-rounded);
+    box-shadow: var(--shadow-deep);
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    li {
+      a {
+        box-sizing: content-box;
+        display: block;
+        width: 1rem;
+        padding: 1rem 1.25rem;
+        background-color: var(--neutral050);
+        text-align: center;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &:first-child, &:last-child {
+        a {
+          width: 2.5rem;
+        }
+      }
+
+      &:hover {
+        a {
+          background-color: var(--primary100);
+        }
+      }
+
+      &.active {
+        a {
+          background-color: var(--primary200);
+        }
+      }
+
+      &.disabled {
+        a {
+          background-color: var(--neutral100);
+          text-decoration: line-through;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
 table {
   box-sizing: content-box;
   width: 100%;
@@ -212,6 +273,7 @@ table {
   border-radius: var(--radius-rounded);
   box-shadow: var(--shadow-deep);
   overflow: hidden;
+  transition: opacity 0.5s;
 
   thead {
     font-size: 0.8rem;

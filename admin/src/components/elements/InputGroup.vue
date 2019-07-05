@@ -1,7 +1,7 @@
 <template>
   <div class="input-group">
     <label>{{ name }}</label>
-    <input :type="type" v-model.trim="value.$model" :class="status" :placeholder="placeholder" :autocomplete="autocomplete" />
+    <input :type="type" v-model.trim="value.$model" :class="status" :placeholder="placeholder" autocomplete="nope" />
     <h5 class="error" v-show="value.$error">{{ error }}</h5>
   </div>
 </template>
@@ -36,17 +36,13 @@ export default {
         error: this.value.$error,
         correct: this.value.$dirty && !this.value.$error
       }
-      if (!this.value.$invalid && this.value.$model !== '') obj.correct = true
-      else if (this.value.$dirty && this.value.$model === '') {
-        obj.correct = true
-        obj.error = false
-      }
       return obj
     },
     error () {
       if (this.value.required === false) return this.name + ' is required.'
       else if (this.value.minLength === false) return this.name + ' must have at least ' + this.value.$params.minLength.min + ' letters.'
       else if (this.value.email === false) return 'Must be a valid email.'
+      else if (this.value.available === false) return 'This email is already taken.'
       else if (this.value.phone === false && this.value.$model !== '') return 'Must be a valid phone number.'
       else if (this.value.sameAsPassword === false) return 'Passwords must match.'
       else return ''
