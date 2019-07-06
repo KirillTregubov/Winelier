@@ -39,8 +39,10 @@ if ($request == 'startEdit') {
   exit;
 }
 
-if ($request == 'getUserAmount') {
-  $userData = mysqli_query($connection, "SELECT COUNT(1) FROM users");
+if ($request == 'getRowAmount') {
+  $table = $data->table;
+
+  $userData = mysqli_query($connection, "SELECT COUNT(1) FROM ".$table);
   $row = mysqli_fetch_array($userData);
   $response = $row[0];
 
@@ -51,16 +53,13 @@ if ($request == 'getUserAmount') {
   exit;
 }
 
-if ($request == 'getUsers') {
-  // echo json_encode([
-  //   'status' => 'error',
-  //   'content' => array('username' => true, 'password' => false)
-  // ]);
-  // exit;
+if ($request == 'getRows') {
+  $table = $data->table;
+  $index = $data->index;
+  $amount = $data->amount;
 
-  // if (isset($data->start_limit)) {
-  $userData = mysqli_query($connection, "SELECT * FROM users ORDER BY id LIMIT ".$data->index.", ".$data->amount);
-
+  // if (isset($data->start_limit))
+  $userData = mysqli_query($connection, "SELECT * FROM ".$table." ORDER BY id LIMIT ".$index.", ".$amount);
   $response = array();
   while($row = mysqli_fetch_assoc($userData)){
     $response[] = $row;
@@ -73,18 +72,19 @@ if ($request == 'getUsers') {
   exit;
 }
 
-if ($request == 'getUser') {
-  $userData = mysqli_query($connection, "SELECT * FROM users WHERE id = ".$data->id);
-  $response = mysqli_fetch_assoc($userData);
+// if ($request == 'getUser') {
+//   $userData = mysqli_query($connection, "SELECT * FROM users WHERE id = ".$data->id);
+//   $response = mysqli_fetch_assoc($userData);
 
-  echo json_encode([
-      'status' => 'success',
-      'content' => json_encode($response)
-    ]);
-  exit;
-}
+//   echo json_encode([
+//       'status' => 'success',
+//       'content' => json_encode($response)
+//     ]);
+//   exit;
+// }
 
-if ($request == 'updateUser') {
+if ($request == 'updateRow') {
+  $table = $data->table;
   $id = $data->id;
   $first_name = $data->first_name;
   $last_name = $data->last_name;
@@ -105,7 +105,7 @@ if ($request == 'updateUser') {
     $condition .= ",description='".$description."'";
   }
 
-  mysqli_query($connection,"UPDATE users SET first_name='".$first_name."',last_name='".$last_name."',email='".$email."',type='".$type."'".$condition.",is_being_edited='0' WHERE id=".$id);
+  mysqli_query($connection,"UPDATE ".$table." SET first_name='".$first_name."',last_name='".$last_name."',email='".$email."',type='".$type."'".$condition.",is_being_edited='0' WHERE id=".$id);
   if (mysqli_affected_rows($connection) == 1) {
     echo json_encode([
       'status' => 'success',
@@ -119,7 +119,8 @@ if ($request == 'updateUser') {
   exit;
 }
 
-if ($request == 'createUser') {
+if ($request == 'createRow') {
+  $table = $data->table;
   $first_name = $data->first_name;
   $last_name = $data->last_name;
   $email = $data->email;
@@ -128,9 +129,10 @@ if ($request == 'createUser') {
   $type = $data->type;
   $description = $data->description;
 
-  $userData = mysqli_query($connection,"SELECT * FROM users WHERE email='".$email."'");
+  $userData = mysqli_query($connection,"SELECT * FROM ".$table." WHERE email='".$email."'");
   if(mysqli_num_rows($userData) == 0){
-    mysqli_query($connection,"INSERT INTO users(first_name,last_name,email,phone,password,type,description) VALUES('".$first_name."','".$last_name."','".$email."','".$phone."','".$password."','".$type."','".$description."')");
+    mysqli_query($connection,"INSERT INTO ".$table."(first_name,last_name,email,phone,password,type,description) VALUES('".$first_name."','".$last_name."','".$email."','".$phone."','".$password."','".$type."','".$description."')");
+    
     if (mysqli_affected_rows($connection) == 1) {
       echo json_encode([
         'status' => 'success'

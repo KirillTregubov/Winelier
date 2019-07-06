@@ -5,34 +5,24 @@ export default {
     data.request = 'startEdit'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
-  async getUserAmount () {
-    return axios.post('https://winelier.com/admin/api/request.php', {
-      request: 'getUserAmount'
-    })
-  },
-  async getUsers (data) {
-    data.request = 'getUsers'
-    return axios.post('https://winelier.com/admin/api/request.php', data)
-    // .then(function (response) {
-    //   console.log(response)
-    // }).catch(function (error) {
-    //   console.log(error)
-    // })
-
-    // return axios.post('./api/config.php', {
-    //   request: 'getUsers'
-    // })
-  },
-  async getUser (data) {
-    data.request = 'getUser'
+  async getRowAmount (data) {
+    data.request = 'getRowAmount'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
-  async updateUser (data) {
-    data.request = 'updateUser'
+  // async getRow (data) {
+  //   data.request = 'getRow'
+  //   return axios.post('https://winelier.com/admin/api/request.php', data)
+  // },
+  async getRows (data) {
+    data.request = 'getRows'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
-  async createUser (data) {
-    data.request = 'createUser'
+  async updateRow (data) {
+    data.request = 'updateRow'
+    return axios.post('https://winelier.com/admin/api/request.php', data)
+  },
+  async createRow (data) {
+    data.request = 'createRow'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   }
 }

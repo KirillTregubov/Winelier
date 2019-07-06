@@ -141,6 +141,7 @@ export default {
         } else {
           // create new user
           let obj = {
+            table: 'users',
             first_name: this.firstName,
             last_name: this.lastName,
             email: this.email,
@@ -150,7 +151,7 @@ export default {
             description: this.description === '' ? null : this.description
           }
           // submit
-          Api.createUser(obj).then((response) => {
+          Api.createRow(obj).then((response) => {
             if (response.data.status === 'success') {
               this.close()
               alert('User created successfully.')
@@ -166,8 +167,10 @@ export default {
         let obj
         if (isClosing) {
           obj = this.oldData
+          obj.table = 'users'
         } else {
           obj = {
+            table: 'users',
             id: this.oldData.id,
             first_name: this.firstName,
             last_name: this.lastName,
@@ -179,7 +182,7 @@ export default {
           }
         }
         // submit
-        Api.updateUser(obj).then((response) => {
+        Api.updateRow(obj).then((response) => {
           if (response.data.status === 'success') {
             this.close()
             alert('User updated successfully.')
@@ -259,7 +262,6 @@ export default {
     max-width: 600px;
     max-height: 85vh;
     overflow: auto;
-    // animation: fade-in 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 
     .title {
       display: flex;

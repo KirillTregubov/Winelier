@@ -37,7 +37,6 @@ export default {
   methods: {
     change (value) {
       this.$emit('select', value)
-      this.value = value
     }
   }
 }
