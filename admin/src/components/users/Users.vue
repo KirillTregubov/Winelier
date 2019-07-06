@@ -1,23 +1,21 @@
 <template>
-  <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
-    <div class="top-bar heading">
+  <Table type="users" name="user" :columns="options">
+    <template v-slot:header>
       <h1>All Users</h1>
-      <!-- <a class="button" @click="isCreateOverlayOpen = true" v-if="users.length !== 0"><Icon name="add-circle" />Create</a> -->
-    </div>
-    <Table>
-    </Table>
-  </section>
+    </template>
+  </Table>
 </template>
 
 <script>
 import Table from '@/components/elements/Table.vue'
-// import Api from '@/services/Api.js'
-// import Overlay from '@/components/elements/Overlay.vue'
-// import Icon from '@/components/icons/Icon.vue'
-// import VueSvg from '@/components/elements/VueSvg.vue'
 
 export default {
   name: 'users',
+  data () {
+    return {
+      options: [{title: 'Name', type: 'compact'}, {title: 'Email', data:'email'}, {title: 'Status', type: 'badge'}]
+    }
+  },
   components: {
     Table
   }

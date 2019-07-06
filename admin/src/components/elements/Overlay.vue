@@ -1,5 +1,5 @@
 <template>
-  <transition name="overlay">
+  <transition name="fade">
     <div id="overlay" v-if="isOpen">
       <form class="content">
         <div class="title">
@@ -223,16 +223,6 @@ export default {
 </script>
 
 <style lang="scss">
-.overlay-enter-active,
-.overlay-leave-active {
-  transition: opacity 0.5s
-}
-
-.overlay-enter,
-.overlay-leave-to {
-  opacity: 0
-}
-
 #overlay {
   position: absolute;
   top: 0;

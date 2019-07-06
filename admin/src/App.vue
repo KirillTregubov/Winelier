@@ -159,12 +159,22 @@ a {
   text-decoration: none;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
+}
+
 div.inline-loader {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 40rem;
+  margin-top: 4rem;
 
   > div {
     display: block;
