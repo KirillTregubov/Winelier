@@ -14,6 +14,13 @@ CREATE TABLE `users` (
   `modified_at` DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
+// guide
+https://www.mikedane.com/databases/sql/
+
+// query to see if is subscribed
+select users.*, if(users.email = newsletter_subscribers.email, true, false) as 'is_subscribed'
+from users, newsletter_subscribers
+
 CREATE TABLE `newsletter_subscribers` (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL UNIQUE,
@@ -48,7 +55,8 @@ CREATE TABLE 'featured_items' (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   article_id INT NOT NULL,
   monthly_winery_ids VARCHAR(255) NOT NULL,
-  popular_winery_ids VARCHAR(255) NOT NULL
+  popular_winery_ids VARCHAR(255) NOT NULL,
+  modified_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE 'wineries' (

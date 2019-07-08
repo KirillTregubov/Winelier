@@ -5,6 +5,10 @@ export default {
     data.request = 'startEdit'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
+  async startDelete (data) {
+    data.request = 'startDelete'
+    return axios.post('https://winelier.com/admin/api/request.php', data)
+  },
   async getRowAmount (data) {
     data.request = 'getRowAmount'
     return axios.post('https://winelier.com/admin/api/request.php', data)
@@ -17,12 +21,12 @@ export default {
     data.request = 'getRows'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
-  async updateRow (data) {
-    data.request = 'updateRow'
+  async updateUser (data) {
+    data.request = 'updateUser'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   },
-  async createRow (data) {
-    data.request = 'createRow'
+  async createUser (data) {
+    data.request = 'createUser'
     return axios.post('https://winelier.com/admin/api/request.php', data)
   }
 }

@@ -161,12 +161,19 @@ a {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s
+  transition: opacity 0.5s !important;
+}
+
+.fade-delayed-enter-active,
+.fade-delayed-leave-active {
+  transition: opacity 0.5s ease 0.5s !important;
 }
 
 .fade-enter,
-.fade-leave-to {
-  opacity: 0
+.fade-leave-to,
+.fade-delayed-enter,
+.fade-delayed-leave-to {
+  opacity: 0;
 }
 
 div.inline-loader {
@@ -196,6 +203,7 @@ div.inline-loader {
 }
 
 h1 {
+  margin: 0;
   margin-bottom: 1.75rem;
   color: var(--neutral900);
   font-size: var(--font-xl);
@@ -203,12 +211,14 @@ h1 {
 }
 
 h2 {
+  margin: 0;
   margin-bottom: 1rem;
   font-size: var(--font-lg);
   font-weight: var(--font-semibold);
 }
 
 h3 {
+  margin: 0;
   margin-bottom: 0.75rem;
   color: var(--neutral500);
   font-size: var(--font-base);
@@ -283,7 +293,7 @@ table {
   border-radius: var(--radius-rounded);
   box-shadow: var(--shadow-deep);
   overflow: hidden;
-  transition: opacity 0.5s;
+  margin-bottom: 1.5rem;
 
   thead {
     font-size: 0.8rem;
@@ -339,7 +349,7 @@ table {
       overflow: hidden;
 
       &.condensed {
-        max-width: 400px;
+        max-width: 350px;
       }
     }
   }

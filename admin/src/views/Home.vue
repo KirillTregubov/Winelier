@@ -46,7 +46,9 @@
         </a></li>
       </ul>
     </nav>
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
   </body>
 </template>
 

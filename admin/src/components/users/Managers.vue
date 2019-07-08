@@ -1,5 +1,10 @@
 <template>
-  <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
+  <Table type="users" name="winery manager" namePlural="winery managers" :columns="options">
+    <template v-slot:header>
+      <h1>Winery Managers</h1>
+    </template>
+  </Table>
+  <!-- <section @scroll="isMenuOpen ? $refs.menu.close() : ''">
     <h1>Winery Managers</h1>
     <h3>Click on a user's row for options related to the specific user.</h3>
     <table>
@@ -31,50 +36,21 @@
         <a href="#" @click.prevent="onClick($event.target.innerText)">Delete</a>
       </li>
     </vue-context>
-  </section>
+  </section> -->
 </template>
 
 <script>
+import Table from '@/components/elements/SingleTable.vue'
+
 export default {
   name: 'managers',
   data () {
     return {
-      isMenuOpen: false,
-      users: [{
-        first_name: 'First',
-        last_name: 'Last',
-        email: 'first@email.com',
-        winery_managed: 'Lacey Estates',
-        created_at: '10/10/2000',
-        modified_at: '10/10/2020'
-      },
-      {
-        first_name: 'First',
-        last_name: 'Last',
-        email: 'first@email.com',
-        winery_managed: 'Averill Creek Vineyard',
-        created_at: '10/10/2000',
-        modified_at: '10/10/2020'
-      },
-      {
-        first_name: 'First',
-        last_name: 'Last',
-        email: 'first@email.com',
-        winery_managed: 'Domaine Desduc',
-        created_at: '10/10/2000',
-        modified_at: '10/10/2020'
-      }],
-      serverErrors: ''
+      options: [{ title: 'Name', type: 'fullName' }, { title: 'Email', data: 'email' }, { title: 'Managing', type: 'wineryManaged' }]
     }
   },
-  methods: {
-    onClick (text) {
-      alert(`You clicked ${text}!`)
-    }
+  components: {
+    Table
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

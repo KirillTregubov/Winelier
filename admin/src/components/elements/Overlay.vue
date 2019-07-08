@@ -93,6 +93,10 @@ export default {
       type: String,
       required: true
     },
+    userType: {
+      type: String,
+      default: null
+    },
     isOpen: {
       type: Boolean,
       default: false
@@ -120,6 +124,7 @@ export default {
       this.password = ''
       this.repeatPassword = ''
       this.type = 'Consumer'
+      this.adjustType()
       this.description = ''
     },
     generatePassword () {
@@ -141,7 +146,6 @@ export default {
         } else {
           // create new user
           let obj = {
-            table: 'users',
             first_name: this.firstName,
             last_name: this.lastName,
             email: this.email,
@@ -151,8 +155,9 @@ export default {
             description: this.description === '' ? null : this.description
           }
           // submit
-          Api.createRow(obj).then((response) => {
+          Api.createUser(obj).then((response) => {
             if (response.data.status === 'success') {
+              this.$emit('success')
               this.close()
               alert('User created successfully.')
             } else if (response.data.status === 'email') {
@@ -167,10 +172,8 @@ export default {
         let obj
         if (isClosing) {
           obj = this.oldData
-          obj.table = 'users'
         } else {
           obj = {
-            table: 'users',
             id: this.oldData.id,
             first_name: this.firstName,
             last_name: this.lastName,
@@ -182,8 +185,9 @@ export default {
           }
         }
         // submit
-        Api.updateRow(obj).then((response) => {
+        Api.updateUser(obj).then((response) => {
           if (response.data.status === 'success') {
+            this.$emit('success')
             this.close()
             alert('User updated successfully.')
           } else {
@@ -194,7 +198,16 @@ export default {
     },
     capitalize (string) {
       return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    adjustType () {
+      if (this.dataType === 'user' && this.userType !== null) {
+        this.type = this.userType
+        this.typeOptions = [this.type]
+      }
     }
+  },
+  mounted () {
+    this.adjustType()
   },
   updated () {
     // insert existing user data
