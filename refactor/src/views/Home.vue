@@ -5,14 +5,14 @@
     </transition>
     <Header></Header>
     <section id="hero" class="bg-image" v-lazy:background-image.container="getImage('hero', '')">
-      <div class="content">
+      <!-- <div class="content">
         <div class="titles">
           <h1>
             <div class="pronounced">Explore</div> Canadian Wine with us
           </h1>
           <h2>There are over 800 licensed wineries in Canada. Discover something new today.</h2>
         </div>
-      </div>
+      </div> -->
     </section>
     <div class="fade" aria-hidden="true"></div>
     <!-- <section id="search">
@@ -300,10 +300,6 @@ export default {
 </script>
 
 <style lang="scss">
-#header {
-  overflow: hidden;
-}
-
 footer {
   padding: 5rem 6rem 3rem 6rem;
   background-color: var(--neutral900);
