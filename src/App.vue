@@ -82,16 +82,15 @@
   --font-semibold: 600;
   --font-bold: 700;
   --font-black: 900;
-  --font-xs: 0.70rem;
-  --font-sm: 0.8rem;
+  --font-xs: 0.6rem;
+  --font-sm: 0.9rem;
   --font-base: 1rem;
-  --font-md: 1.15rem;
+  --font-md: 1.1rem;
   --font-lg: 1.25rem;
+  --font-xl: 2rem;
+  --font-2xl: 3rem;
   --letters-spread: 0.025rem;
   --letters-wide: 0.05rem;
-  // --font-lg: 1.5rem;
-  --font-xl: 2rem;
-  --font-2xl: 5rem;
   // Borders and Shadows
   --radius-subtle: 0.25rem;
   --radius-rounded: 0.5rem;
@@ -118,6 +117,30 @@
   background-color: var(--neutral050);
 }
 
+@include tablet-portrait-up {
+  :root {
+    --font-xs: 0.65rem;
+    --font-sm: 0.8rem;
+    --font-base: 1rem;
+    --font-md: 1.15rem;
+    --font-lg: 1.5rem;
+    --font-xl: 2rem;
+    --font-2xl: 4rem;
+  }
+}
+
+@include desktop-up {
+  :root {
+    --font-xs: 0.65rem;
+    --font-sm: 0.8rem;
+    --font-base: 1rem;
+    --font-md: 1.15rem;
+    --font-lg: 1.25rem;
+    --font-xl: 2rem;
+    --font-2xl: 5rem;
+  }
+}
+
 body, input {
   font-family: var(--font-stack);
 }
@@ -135,6 +158,36 @@ body > section:not(#hero) {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.slide-down-enter-active {
+  animation: slide-down 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.slide-down-leave-active {
+  animation: slide-up 0.25s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
 }
 
 div#loader {
@@ -184,7 +237,7 @@ a.button {
   text-decoration: none;
   text-align: center;
   user-select: none;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease; // color etc?
 
   &:focus, &:hover {
     -webkit-tap-highlight-color: transparent;
@@ -223,6 +276,24 @@ a.button {
       }
       .secondary {
         fill: var(--primary900);
+      }
+    }
+  }
+
+  &.secondary {
+    background-color: var(--yellow600);
+    color: var(--yellow100);
+
+    &:focus, &:hover {
+      // background-color: var(--neutral800);
+    }
+
+    svg {
+      .primary {
+        fill: var(--yellow400);
+      }
+      .secondary {
+        fill: var(--yellow800);
       }
     }
   }

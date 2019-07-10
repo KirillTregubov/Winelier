@@ -1,0 +1,97 @@
+var jq = document.createElement('script');
+jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";
+document.getElementsByTagName('head')[0].appendChild(jq);
+
+setTimeout(function(){
+var classObj = {};
+classObj.name = $('.entry-title-wrap:eq(0)').text().trim();
+classObj.address = $('.address-data:eq(0)').text().trim();
+classObj.phone = $('.address-data:eq(1)').text().trim();
+classObj.email = $('.address-data:eq(2)').text().trim();
+classObj.website = $('.address-data:eq(3) p a').attr('href');
+console.log(classObj);
+}, 1000);
+
+
+
+
+
+Ontario
+{name: "Willow Springs Winery", address: "5572 Bethesda Road, Stouffville, Ontario", phone: "+1 (905) 642-9463", email: "info@willowspringswinery.ca", website: "http://willowspringswinery.com/"}
+{name: "Waupoos Estates Winery", address: "3016 County Road 8, Picton, Ontario", phone: "+1 (613) 476-8338", email: "info@waupooswinery.com", website: "http://www.waupooswinery.com/"}
+{name: "Vivace Estate Winery", address: "5141 Concession 5 North, Amherstburg, Ontario", phone: "+1 (519) 997-2576", email: "info@vivaceestatewinery.com", website: "https://www.vivaceestatewinery.com/"}
+{name: "Viewpointe Estate Winery", address: "151 County Road 50 East, Harrow, Ontario", phone: "+1 (519) 738-0690", email: "info@viewpointewinery.com", website: "http://www.viewpointewinery.com/"}
+{name: "Trail Estate Winery", address: "416 Benway Road, Hillier, Ontario", phone: "+1 (647) 233-8599", email: "info@trailestate.com", website: "https://trailestate.com/"}
+{name: "Three Dog Winery", address: "1920 Fish Lake Road, Picton, Ontario", phone: "+1 (613) 403-4323", email: "wine@threedogwine.com", website: "http://www.threedogwine.com/"}
+{name: "The Roost Wine Company", address: "415763 10th Line, Blue Mountains, Ontario", phone: "+1 (519) 599-6269", email: "info@theroostwineco.ca", website: "https://www.roostwinery.ca/"}
+{name: "Sugarbush Vineyards", address: "1286 Wilson Road, Hillier, Ontario", phone: "+1 (613) 399-9000", email: "info@sugarbushvineyards.ca", website: "http://sugarbushvineyards.ca/"}
+{name: "Sprucewood Shores Estate Winery", address: "7258 County Road 50 West, Amherstburg, Ontario", phone: "+1 (519) 738-9253", email: "info@sprucewoodshores.com", website: "https://www.sprucewoodshores.com/"}
+{name: "Sandbanks Winery", address: "17598 Loyalist Parkway, Wellington, ON", phone: "+1 (613) 399-1839", email: "wine@sandbankswinery.com", website: "https://www.sandbankswinery.com/"}
+{name: "Rosehall Run Vineyards", address: "1243 Greer Road, Wellington, Ontario", phone: "+1 (888) 399-1183", email: "wine@rosehallrun.com", website: "https://www.rosehallrun.com/"}
+{name: "Pelee Island Winery", address: "455 Seacliff Drive,  Kingsville, Ontario", phone: "+1 (519) 733-6551", email: "inquiries@peleeisland.com", website: "https://www.peleeisland.com/c"}
+{name: "Oxley Estate Winery", address: "533 County Road 50 East, Harrow, Ontario", phone: "+1 (519) 738-3264", email: "info@oxleyestatewinery.com", website: "https://oxleyestatewinery.com/"}
+{name: "North 42 Degrees Estate Winery", address: "130 County Road 50 East, Colchester, Ontario", phone: "+1 (519) 984-2684", email: "info@north42degrees.com", website: "https://north42degrees.com/"}
+{name: "Norman Hardie", address: "1152 Greer Road, Wellington, Ontario", phone: "+1 (613) 399-5297", email: "info@normanhardie.com", website: "http://www.normanhardie.com/"}
+{name: "Muscedre Vineyards", address: "7457 County Road 18, Harrow, Ontario", phone: "+1 (519) 965-1075", email: "fabio@muscederevineyards.com", website: "http://muscederevineyards.com/"}
+{name: "Monastery Cellars", address: "7020 Stanley Avenue, Niagara Falls, Ontario", phone: "+1 (905) 933-5972", email: "wine@monasterycellars.com", website: "https://monasterycellars.com/"}
+{name: "Mastronardi Estate Winery", address: "1193 Concession 3 East, Kingsville, Ontario", phone: "+1 (800) 320-5040", email: "eadie@mastronardiwines.com", website: "http://mastronardiwines.com/"}
+{name: "Magnotta Winery", address: "271 Chrislea Road, Toronto, Ontario", phone: "+1 (800) 461-9463", email: "mailbox@magnotta.com", website: "https://magnotta.com/"}
+{name: "Maelstrom Winery", address: "78925 Sanctuary Line, Seaforth, Ontario", phone: "+1 (519) 233-9463", email: "catherine@maelstromwinery.ca", website: "http://www.maelstromwinery.ca/"}
+{name: "Lundy Manor Wine Cellars", address: "9941 Lundy's Lane, Niagara Falls, Ontario", phone: "+1 (905) 354-6999", email: "cellardoor@lundymanor.ca", website: "https://lundymanor.ca/"}
+{name: "Lacey Estates", address: "804 Closson Road, Hillier, Ontario", phone: "-6.664314640896579, 3.98828125", email: "+1 (613) 399-2598", website: "mailto:info@laceyestates.com"}
+{name: "Keint-He Winery &Vineyards", address: "49 Hubbs Creek Road, Wellington, Ontario", phone: "+1 (613) 399-5308", email: "info@keint-he.ca", website: "https://www.keint-he.ca/"}
+{name: "Karlo Estates", address: "561 Danforth Road, Wellington, Ontario", phone: "+1 (613) 399-3000", email: "info@karloestates.com", website: "https://www.karloestates.com/"}
+{name: "Huff Estates", address: "2274 Country Road 1, Bloomfield, Ontario", phone: "+1 (613) 393-5802", email: "info@huffestates.com", website: "https://huffestates.com/"}
+{name: "Holland Marsh Wineries", address: "18270 Keele Street, Newmarket, Ontario", phone: "+1 (905) 775-4924", email: "Info@hmwineries.ca", website: "https://www.hmwineries.ca/"}
+{name: "Harwood Estate Vineyards", address: "18908 Loyalist Parkway, Hillier, Ontario", phone: "+1 (855) 668-9463", email: "winery@harwoodestatevineyards.com", website: "https://harwoodestatevineyards.com/"}
+{name: "Grange of Prince Edward", address: "990 Closson Road, Hillier, Ontario", phone: "+1 (613) 399-1048", email: "info@grangeofprinceedward.com", website: "https://grangeofprinceedward.com/"}
+{name: "Georgian Hill Vineyards", address: "496350 Grey Road 2, Blue Mountains, Ontario", phone: "+1 (519) 599-2255", email: "info@georgianhillsvineyards.ca", website: "https://www.georgianhillsvineyards.ca/"}
+{name: "Galucci Winery", address: "13204 9th Line, Stouffville, ON", phone: "+1 (905) 640-0909", email: "annemariepiro@gallucciwinery.com", website: "https://www.gallucciwinery.com/"}
+{name: "Dark Horse Estate Winery", address: "70665 B Line, Grand Bend, Ontario", phone: "+1 (519) 238-5000", email: "info@darkhorseestatewinery.com", website: "http://www.darkhorseestatewinery.com/"}
+{name: "CREW Colchester Ridge Estate Winery", address: "108 County Road 50 East, Harrow, Ontario", phone: "+1 (519) 738-9800", email: "info@colchesterridge.com", website: "http://www.colchesterridge.com/"}
+{name: "Cooper’s Hawk Vineyards", address: "1425 Iler Road Harrow, Ontario", phone: "+1 (519) 738-4295", email: "info@coopershawkvineyards.com", website: "https://coopershawkvineyards.com/"}
+{name: "Colio Estate Wines", address: "1 Colio Drive, Harrow, Ontario", phone: "+1 (800) 265-1322", email: "cheers@coliowinery.com", website: "http://www.coliowinery.com/"}
+{name: "Coffin Ridge Boutique Winery", address: "599448 2nd Concession North, Annan, Ontario", phone: "+1 (519) 371-9565", email: "kiri@coffinridge.ca", website: "https://www.coffinridge.ca/"}
+{name: "Closson Chase", address: "629 Closson Road, Hillier, Ontario", phone: "+1 (888) 201-2300", email: "info@clossonchase.com", website: "http://clossonchase.com/"}
+{name: "Casa Dea Estates Winery", address: "1186 Greer Road, Wellington, Ontario", phone: "+1 (866) 578-3445", email: "info@casadeaestates.com", website: "https://casadeaestates.com/"}
+{name: "By Chadsey’s Cairns Winery & Vineyard", address: "17432 Loyalist Parkway, Wellington, Ontario", phone: "+1 (613) 399-2992", email: "info@bccwinery.com", website: "http://bychadseyscairns.com/"}
+{name: "Burning Kiln Winery", address: "1709 Front Road, St. Williams, Ontario", phone: "+1 (519) 586-9858", email: "info@burningkilnwinery.ca", website: "http://www.burningkilnwinery.ca/"}
+{name: "Broken Stone Winery", address: "524 Closson Road,  Hillier, Ontario", phone: "+1 (343) 600-3993", email: "info@brokenstone.ca", website: "https://www.brokenstonewinery.com/"}
+{name: "Black Prince Winery", address: "13370 Loyalist Parkway, Picton, Ontario", phone: "+1 (866) 470-9463", email: "info@blackprincewinery.com", website: "http://www.blackprincewinery.com"}
+{name: "Alton Farms Estate Winery", address: "5547 Aberarder Line, Plympton-Wyoming, ON", phone: "+1 (519) 899-2479", email: "info@altonfarmsestatewinery.com", website: "http://altonfarmsestatewinery.com/"}
+{name: "Adamo Estate Winery", address: "793366 3rd Line EHS, Mono, Ontario", phone: "+1 (519) 942-3969", email: "info@adamoestate.com", website: "https://adamoestate.com/"}
+
+
+New Brunswick
+{name: "Winegarden Estate", address: "851 Route 970, Baie Verte, New Brunswick", phone: "+1 (506) 538-7405", email: "srosswog@nbnet.nb.ca", website: "http://winegardenestate.com/"}
+{name: "Waterside Farms Cottage Winery", address: "2008 Scenic Route 915, Waterside, New Brunswick", phone: "+1 (506) 887-2583", email: "-", website: "http://www.watersidewinery.ca/"}
+{name: "Verger Belliveau Orchard", address: "1209 Principale Street, Memramcook, New Brunswick", phone: "+1 (506) 758-0295", phone_2:"+1 (506) 758-2325", email: "info@vergerbelliveauorchard.ca", website: "http://www.vergerbelliveauorchard.ca/"}
+{name: "Sea Buckthorn Organic Berry Orchard & Winery", address: "Chipman, New Brunswick", phone: "+1 (506) 260-7400", email: "sea-buckthorn@outlook.com", website: "https://www.bigskyseabuckthorn.com/"}
+{name: "Motts Landing Vineyard and Winery", address: "3506 Cambridge Road, Cambridge-Narrows, New Brunswick", phone: "+1 (506) 488-8091", email: "-", website: "https://www.mottslandingvineyard.com/"}
+{name: "Magnetic Hill Winery", address: "860 Front Mountain Road, Moncton, New Brunswick", phone: "+1 (506) 384-9463", email: "info@magnetichillwinery.com", website: "http://www.magnetichillwinery.com/"}
+{name: "Dunhams Run Estate Winery", address: "35 Gorhams Bluff Road, Kingston, New Brunswick", phone: "-", email: "tony@dunhamsrun.ca", website: "http://dunhamsrun.ca/"}
+{name: "Domaine Latitude 46 Estate Winery", address: "110 Principale Road, Memramcook, New Brunswick", phone: "+1 (506) 852-4601", email: "info@latitude46wines.ca", website: "https://latitude46wines.ca/"}
+
+
+Alberta
+{name: "Spirit Hills Honey Winery", address: "2380 Drive West Millarville, Alberta", phone: "+1 (403) 933 3913", email: "info@spirithillswinery.com", website: "https://www.spirithillswinery.com/"}
+{name: "Field Stone Fruit Wines", address: "251073A Township Road 232, Strathmore, Alberta", phone: "+1 (403) 934-2749", email: "info@fieldstonefruitwines.com", website: "https://www.fieldstonefruitwines.com/"}
+{name: "Fallentimber Meadery", address: "Box 27, Water Valley, Alberta", phone: "+1 (403) 637-2667", email: "info@fallentimbermeadery.ca", website: "http://www.fallentimbermeadery.ca/"}
+{name: "Chinook Honey Company", address: "386079 16th Street West, Okotoks, Alberta", phone: "+1 (403) 995-0830", email: "info@chinookhoney.com", website: "https://www.chinookhoney.com/"}
+{name: "Birds & Bees Winery", address: "Box 110,  Brosseau, Alberta", phone: "+1 (780) 657-2275", email: "info@BirdsAndBeesWinery.com", website: "https://www.birdsandbeeswinery.com/"}
+{name: "Barr Estate Winery", address: "51526 Range Road 231, Sherwood Park, Alberta", phone: "+1 (780) 819-9463", email: "Wine@Barr.Ca", website: "http://www.barr.ca/"}
+
+
+Saskatchewan
+{name: "Wolf Willow Winery", address: "Outlook, Saskatchewan", phone: "+1 (306) 867-9463", email: "info@wolfwillowwinery.ca", website: "https://www.wolfwillowwinery.ca/"}
+{name: "Riverlot Orchards Winery", address: "Highway 782, St. Louis, Saskatchewan", phone: "+1 (306) 980-9505", email: "riverlotorchards@gmail.com", website: "https://www.riverlotorchards.ca/"}
+{name: "Prairie Bee Meadery", address: "23 B Main Street North, Moose Jaw, Saskatchewan", phone: "+1 (306) 692-6323", email: "inquiries@prairiebeemeadery.ca", website: "https://www.prairiebeemeadery.ca/"}
+{name: "Over the Hill Orchards & Winery", address: "Lumsden, Saskatchewan", phone: "+1 (306) 535-1278", email: "info@overthehillorchards.ca", website: "http://overthehillorchards.ca/"}
+{name: "Living Sky Winery", address: "Perdue, Saskatchewan", phone: "+1 (306) 290-1693", email: "info@livingskywinery.com", website: "https://www.livingskywinery.com/"}
+{name: "Forest Fringe Orchards", address: "Prince Albert, Saskatchewan", phone: "+1 (306) 930-6229", email: "gen.greif@forestfringeorchards.ca", website: "http://www.forestfringeorchards.ca/"}
+{name: "Cypress Hills Vineyard and Winery", address: "-", phone: "+1 (306) 662-4100", email: "cheers@cypresshillswinery.com", website: "https://cypresshillswinery.com/"}
+
+
+Manitoba
+{name: "Shrugging Doctor", address: "448B Brooklyn Street,  Winnipeg, Manitoba", phone: "+1 (204) 889-0318", email: "contact@shrugdoc.com", website: "https://shrugdoc.com/"}
+{name: "Rigby Orchards", address: "-", phone: "-", email: "rigbyorchards@mts.net", website: "http://www.rigbyorchards.com/"}

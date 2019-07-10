@@ -1,6 +1,13 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "@/assets/style/mixins.scss";`
+      }
+    }
+  },
   configureWebpack: {
     devtool: 'source-map',
     plugins: [

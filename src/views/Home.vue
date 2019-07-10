@@ -1,7 +1,9 @@
 <template>
   <body id="home">
     <transition name="fade">
-    <div v-if="isLoading" id="loader"><div></div></div>
+      <div v-if="isLoading" id="loader">
+        <div></div>
+      </div>
     </transition>
     <Header></Header>
     <section id="hero" class="bg-image" v-lazy:background-image.container="getImage('hero', '')">
@@ -16,19 +18,21 @@
     </section>
     <div class="fade" aria-hidden="true"></div>
     <section id="search">
-      <div class="search-container">
-        <div class="input wide left">
-          <div class="label">Winery</div>
-          <div class="input">
-            <input type="text" placeholder="A Winery in Canada">
-            <Icon name="chevron-down" />
+      <div class="content">
+        <div class="input-group">
+          <div class="input wide left">
+            <div class="label">Winery</div>
+            <div class="input">
+              <input type="text" placeholder="A Winery in Canada">
+              <Icon name="chevron-down" />
+            </div>
           </div>
-        </div>
-        <div class="input wide right">
-          <div class="label">Where</div>
-          <div class="input">
-            <input type="text" placeholder="Ontario">
-            <Icon name="chevron-down" />
+          <div class="input wide right">
+            <div class="label">Where</div>
+            <div class="input">
+              <input type="text" placeholder="Ontario">
+              <Icon name="chevron-down" />
+            </div>
           </div>
         </div>
         <a class="button primary" href="">
@@ -38,7 +42,7 @@
     <section id="content">
       <div class="province-container">
         <h2>Or browse by province</h2>
-        <div class="list-container">
+        <div class="list">
           <div class="list-item" :key="province.id" v-for="province in provinceArray">
             <a href="" class="button bg-image" v-lazy:background-image.container="getImage(province, 'province')">
             </a>
@@ -83,7 +87,7 @@
               <Icon name="calendar-date" />
               <h3>{{ featuredArticle.date }}</h3>
             </div> -->
-            <a href="" class="button primary">
+            <a href="" class="button secondary">
               <Icon name="book-open" />Read Article</a>
           </div>
         </div>
@@ -290,7 +294,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.isLoading = false
-    }, 1000)
+    }, 100)
   },
   components: {
     Header,
@@ -300,29 +304,52 @@ export default {
 </script>
 
 <style lang="scss">
+.test {
+  height: 100vh;
+}
+
 footer {
-  padding: 5rem 6rem 3rem 6rem;
+  padding: 5rem 1.5rem 3rem 1.5rem;
   background-color: var(--neutral900);
   color: var(--neutral050);
+
+  @include tablet-landscape-up {
+    padding: 5 4rem 3rem 4rem;
+  }
+
+  @include desktop-up {
+    padding: 5 6rem 3rem 6rem;
+  }
 
   > div.content {
     max-width: var(--max-width);
     margin: 0 auto;
+
+    div.container {
+      display: block;
+    }
   }
 
   div.primary.content {
-    display: flex;
-    flex-wrap: wrap;
-    padding-bottom: 4rem;
     margin-bottom: 2rem;
     border-bottom: 2px solid var(--neutral800);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-row-gap: 2.5rem;
+    grid-column-gap: 3rem;
+    padding-bottom: 3rem;
 
-    > div.container {
-      max-width: 200px;
-    }
+    @include big-desktop-up {
+      display: flex;
+      flex-wrap: wrap;
 
-    > div.container:not(:last-child) {
-      margin-right: 3.5rem;
+      > div.container {
+        max-width: 200px;
+      }
+
+      > div.container:not(:last-child) {
+        margin-right: 3.5rem;
+      }
     }
 
     div.icon-title {
@@ -367,7 +394,9 @@ footer {
     }
 
     div.logo.container {
-      margin-right: auto;
+      @include big-desktop-up {
+        margin-right: auto;
+      }
 
       img {
         width: 12.5rem;
@@ -397,6 +426,8 @@ footer {
     }
 
     div.blog.container {
+      max-width: 225px;
+
       h2 {
         margin-bottom: 0.5rem;
       }
@@ -424,18 +455,27 @@ footer {
   }
 
   div.secondary.content {
-    display: flex;
-    align-items: center;
     color: var(--neutral300);
+
+    @media (min-width: 900px) {
+      display: flex;
+      align-items: center;
+
+      div.back {
+        margin: 0 !important;
+      }
+    }
 
     :first-child {
       margin-right: auto;
     }
 
     div.back {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      padding: 0.25rem 0.5rem;
+      margin: 1.5rem 0 0 0;
+      padding-right: 0.25rem;
+      // padding: 0.25rem 0.5rem;
       user-select: none;
 
       &:focus, &:hover {
@@ -479,7 +519,7 @@ div.winery-card {
 
   div.info-container {
     position: relative;
-    padding: 0 0.75rem;
+    padding: 0 1rem;
 
     div.info-inner {
       padding: 1rem;
@@ -496,6 +536,10 @@ div.winery-card {
       div.container {
         display: flex;
         align-items: center;
+
+        div.badge:first-child {
+          margin-right: 0.5rem;
+        }
 
         svg {
           margin-right: 0.5rem;
@@ -521,25 +565,22 @@ div.winery-card {
 }
 
 div.winery-list-horizontal {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-gap: 1rem;
 
-  > div {
-    flex-shrink: 1;
-
-    &:not(:first-child) {
-      margin-left: 1rem;
-    }
+  @media (max-width: 399px) {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   }
 
   div.winery-card {
-    max-width: 20rem;
-    display: inline-block;
+    width: 100%;
 
     div.image-container {
       width: 100%;
       height: 15rem;
       border-radius: var(--radius-subtle);
-      box-shadow: var(--shadow-deep-sm);
+      box-shadow: var(--shadow-deep);
     }
 
     div.info-container {
@@ -548,7 +589,6 @@ div.winery-list-horizontal {
       div.info-inner {
         border-radius: var(--radius-subtle);
         background-color: var(--neutral050);
-        border: 1px solid var(--neutral100);
         box-shadow: var(--shadow-deep-sm);
       }
     }
@@ -557,30 +597,69 @@ div.winery-list-horizontal {
 
 div.winery-list-vertical {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); // adjust this
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   grid-gap: 1rem;
 
-  div.winery-card {
-    display: flex;
-    border-radius: var(--radius-subtle);
-    background-color: var(--neutral050);
-    box-shadow: var(--shadow-deep-md);
-    overflow: hidden;
+  @media (max-width: 399px) {
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
 
-    div.image-container {
-      width: 40%;
+  @include tablet-portrait-up {
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  }
+
+  @include phone-only {
+    div.winery-card {
+      width: 100%;
+
+      div.image-container {
+        width: 100%;
+        height: 15rem;
+        border-radius: var(--radius-subtle);
+        box-shadow: var(--shadow-deep);
+      }
+
+      div.info-container {
+        margin-top: -4rem;
+
+        div.info-inner {
+          border-radius: var(--radius-subtle);
+          background-color: var(--neutral050);
+          box-shadow: var(--shadow-deep-sm);
+        }
+      }
+    }
+  }
+
+  @include tablet-portrait-up {
+    div.winery-card {
+      display: flex;
+      border-radius: var(--radius-subtle);
+      background-color: var(--neutral050);
+      box-shadow: var(--shadow-deep-sm);
+      overflow: hidden;
+
+      div.image-container {
+        width: 40%;
+      }
     }
   }
 }
 
 div.featured-article {
   display: flex;
+  flex-direction: column;
   width: 100%;
   border-radius: var(--radius-rounded);
   box-shadow: var(--shadow-deep-md);
   overflow: hidden;
 
+  @include tablet-landscape-up {
+    flex-direction: row;
+  }
+
   div.image-container {
+    // display: none;
     width: 50%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -588,20 +667,23 @@ div.featured-article {
   }
 
   div.info-container {
-    width: 50%;
     padding: 1.75rem;
-    background-color: var(--primary700);
+    background-color: var(--yellow700);
+
+    @include tablet-landscape-up {
+      width: 50%;
+    }
 
     h1 {
       line-height: 1.25;
-      color: var(--primary100);
+      color: var(--yellow100);
     }
 
     h2 {
       margin-bottom: 1.5rem;
       line-height: 1.6;
       font-weight: var(--font-semibold);
-      color: var(--primary200);
+      color: var(--yellow200);
       font-size: var(--font-md);
     }
 
@@ -614,16 +696,16 @@ div.featured-article {
         margin-right: 0.5rem;
 
         .primary {
-          fill: var(--primary900);
+          fill: var(--yellow900);
         }
 
         .secondary {
-          fill: var(--primary300);
+          fill: var(--yellow400);
         }
       }
 
       h3 {
-        color: var(--primary300);
+        color: var(--yellow300);
         font-weight: var(--font-semibold);
       }
     }
@@ -632,7 +714,6 @@ div.featured-article {
 
 div.badge {
   display: inline-block;
-  margin-right: 0.5rem;
   padding: 0.25rem 0.5rem 0.2rem 0.5rem;
   border-radius: var(--radius-rounded);
   background-color: var(--primary200);
@@ -764,11 +845,19 @@ input:not([type='submit']):not([type='file']) {
   }
 }
 
-section:not(#hero) {
-  padding: 2rem 6rem;
+section {
+  padding: 2rem 1.5rem;
   position: relative;
   max-width: var(--max-width);
   margin: 0 auto;
+
+  @include tablet-landscape-up {
+    padding: 2rem 4rem;
+  }
+
+  @include desktop-up {
+    padding: 2rem 6rem;
+  }
 }
 
 h1 {
@@ -781,7 +870,7 @@ section#content {
   padding-top: 2.5rem;
 
   > div:not(:last-child) {
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
   }
 
   > div {
@@ -802,31 +891,130 @@ div.fade {
 }
 
 section#search {
-  position: relative;
   margin-top: -4.5rem;
   background-color: var(--neutral050);
   border-radius: var(--radius-rounded);
   box-shadow: var(--shadow-deep-lg);
+
+  margin-top: -5rem;
+
+  @include tablet-portrait-only {
+    margin-top: -8.5rem;
+  }
+
+  @include tablet-landscape-up {
+    margin-top: -5.5rem;
+  }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    div.input-group {
+      flex: 1;
+
+      @include phone-only {
+        > :not(:first-child) {
+          margin-top: 1rem;
+        }
+      }
+
+      @include tablet-portrait-up {
+        display: flex;
+      }
+    }
+
+    @include tablet-portrait-only {
+      // display: block;
+    }
+
+    @include tablet-landscape-up {
+      flex-direction: row;
+    }
+
+    div.input.wide:first-child {
+      flex: 1.75;
+    }
+
+    div.input.wide:nth-child(2) {
+      flex: 1;
+    }
+
+    div.input.wide {
+      flex: 1;
+      border-radius: var(--radius-subtle);
+
+      @include tablet-portrait-up {
+        border-radius: 0;
+
+        &.left {
+          border-right: 1px solid var(--neutral300);
+          border-top-left-radius: var(--radius-subtle);
+          border-bottom-left-radius: var(--radius-subtle);
+        }
+
+        &.right {
+          border-top-right-radius: var(--radius-subtle);
+          border-bottom-right-radius: var(--radius-subtle);
+        }
+      }
+    }
+
+    a.button {
+      margin: 0;
+      margin-top: 1rem;
+      padding: 0.75rem 2rem;
+
+      @include tablet-landscape-up {
+        margin: 0 0 0 2rem;
+      }
+    }
+  }
 }
 
 .bg-image {
   background-color: var(--neutral100);
+
   &[lazy=loaded] {
-    transition: all 0.7s ease;
+    transition: opacity 0.7s ease;
   }
 }
 
 section#hero {
-  position: relative;
-  height: calc(100vh - 7.5rem);
+  height: 100vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center 20%;
 
   > div.content {
-    padding-top: 3rem;
+    padding: 0 1.5rem;
+    padding-top: 2vh;
     max-width: var(--max-width);
     margin: 0 auto;
+    box-sizing: content-box;
+
+    @include tablet-portrait-up {
+      padding-top: 5vh;
+    }
+
+    @include tablet-landscape-up {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+
+    @include desktop-up {
+      padding-left: 6rem;
+      padding-right: 6rem;
+    }
+
+    // @include big-desktop-up {
+    //   padding-left: 0;
+    //   padding-right: 0;
+    // }
 
     h1 {
       font-size: var(--font-2xl);
@@ -835,48 +1023,21 @@ section#hero {
       .pronounced {
         font-weight: var(--font-black);
       }
+
+      @include tiny-height-only {
+        font-size: var(--font-xl);
+      }
     }
 
     h2 {
       color: var(--neutral600);
       font-size: var(--font-md);
       font-weight: var(--font-semibold);
+
+      @include tiny-height-only {
+        font-size: var(--font-sm);
+      }
     }
-  }
-}
-
-div.search-container {
-  display: flex;
-  width: 100%;
-
-  div.input.wide:first-child {
-    flex: 1.75;
-  }
-
-  div.input.wide:nth-child(2) {
-    flex: 1;
-  }
-
-  div.input.wide {
-    flex: 1;
-    border-radius: 0;
-    border-right: 1px solid var(--neutral300);
-
-    &.left {
-      border-top-left-radius: var(--radius-subtle);
-      border-bottom-left-radius: var(--radius-subtle);
-    }
-
-    &.right {
-      border-right: none;
-      border-top-right-radius: var(--radius-subtle);
-      border-bottom-right-radius: var(--radius-subtle);
-    }
-  }
-
-  a.button {
-    margin: 0 0 0 2rem;
-    padding: 0.75rem 2rem;
   }
 }
 
@@ -885,26 +1046,25 @@ div.province-container {
     margin-bottom: 0.5rem;
   }
 
-  div.list-container {
+  div.list {
     display: grid;
-    grid-template-columns: repeat(
-      auto-fit,
-      calc((var(--max-width) - 7rem) / 8)
-    );
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
     grid-gap: 1rem;
 
     div.list-item {
       text-align: center;
 
       a.button.bg-image {
-        width: calc((var(--max-width) - 7rem) / 8);
-        height: 4rem;
+        width: 100%;
+        padding-top: 50%;
         box-shadow: var(--shadow-deep-sm);
       }
 
       h2 {
         color: var(--neutral900);
         margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

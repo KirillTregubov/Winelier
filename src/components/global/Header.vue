@@ -1,16 +1,20 @@
 <template>
   <header id="header">
-  <!-- <header id="header" :class="{isSticky: isSticky, sticky: sticky, hiding: hiding}"> -->
     <nav>
       <ul>
-        <li class="left"><a href=""><img class="logo" src="@/assets/img/logo.png" alt="Winelier Logo"></a></li>
-        <li><a href="">Explore <Icon name="chevron-down" /></a></li>
-        <!-- <li><a href="">Events</a></li> -->
-        <li><a href="">Help <Icon name="chevron-down" /></a></li>
-        <li><a href="">Blog <Icon name="chevron-down" /></a></li>
-        <li><a href="">Shop <Icon name="chevron-down" /></a></li>
-        <li class="login"><a href=""><Icon name="user-circle" class="left" />Log In</a></li>
-        <li class="button"><a class="button" href="">Add Listing</a></li>
+        <li class="left mobile"><a href=""><img class="logo" src="@/assets/img/logo.png" alt="Winelier Logo"></a></li>
+        <li class="toggle mobile" @click="isMobileExpanded = !isMobileExpanded"><Icon :name="toggleName" /></li>
+        <transition name="slide-down">
+          <ul v-show="isMobileExpanded">
+            <li><a href="">Explore <Icon name="chevron-down" /></a></li>
+            <!-- <li><a href="">Events</a></li> -->
+            <li><a href="">Help <Icon name="chevron-down" /></a></li>
+            <li><a href="">Blog <Icon name="chevron-down" /></a></li>
+            <li><a href="">Shop <Icon name="chevron-down" /></a></li>
+            <li class="login"><a href=""><Icon name="user-circle" class="left" />Log In</a></li>
+            <li class="button"><a class="button" href="">Add Listing</a></li>
+          </ul>
+        </transition>
       </ul>
     </nav>
   </header>
@@ -25,7 +29,13 @@ export default {
     return {
       hiding: false,
       sticky: false,
-      scrollPosition: 0
+      scrollPosition: 0,
+      isMobileExpanded: false
+    }
+  },
+  computed: {
+    toggleName () {
+      return this.isMobileExpanded ? 'close' : 'menu'
     }
   },
   components: {
@@ -35,70 +45,145 @@ export default {
 </script>
 
 <style lang="scss">
-img.logo {
-  width: 8rem;
-}
-
 #header {
-  padding: 2rem 5rem;
   font-weight: var(--font-bold) !important;
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: var(--neutral100);
   z-index: 2;
-}
+  background-color: var(--neutral100);
+  font-size: var(--font-base);
 
-@keyframes slideDown {
-    0% {
-        opacity: 0.6;
-        transform: translateY(-100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+  nav {
+    padding: 1rem 1rem;
 
-@keyframes slideUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0.6;
-        transform: translateY(-100%);
-    }
-}
+    @include tablet-portrait-only {
+      padding-bottom: 0.5rem;
 
-ul {
-  display: flex;
-  align-items: center;
-
-  li {
-    margin-left: 2rem;
-
-    &.left {
-      margin: 0 auto 0 0;
+      @include tiny-height-only {
+        padding-top: 0.5rem;
+      }
     }
 
-    &.login {
-      margin-left: 5rem;
+    @include tablet-landscape-up {
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
 
-    a {
+    ul:first-child {
       display: flex;
       align-items: center;
+      justify-content: center;
 
-      svg {
-        width: 1.5rem;
+      @include tablet-portrait-only {
+        flex-wrap: wrap;
+      }
+
+      li {
+        margin-left: 1rem;
 
         &.left {
-          margin-right: 0.5rem;
+          margin: 0 auto 0 0;
+        }
+
+        svg {
+          width: 1.5rem;
+        }
+
+        @include tablet-portrait-only {
+          @include tiny-height-only {
+            &.mobile {
+              display: none;
+            }
+          }
+        }
+
+        @include tablet-portrait-up {
+          &.toggle {
+            display: none;
+          }
+        }
+
+        @include tablet-portrait-only {
+          &.left {
+            margin: 0 !important;
+          }
+        }
+
+        @include tablet-landscape-up {
+          margin-left: 2rem;
+
+          &.login {
+            margin-left: 5rem;
+          }
+        }
+      }
+
+      ul {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        margin-top: 5rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--neutral100);
+
+        @include tablet-portrait-only {
+          @include tiny-height-only {
+            padding-top: 0 !important;
+          }
+        }
+
+        @include tablet-portrait-up {
+          position: initial;
+          flex: none;
+          display: flex !important;
+          margin: 0;
+          padding: 0;
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        @include tablet-portrait-only {
+          padding-top: 0.5rem;
+        }
+
+        @include tablet-landscape-up {
+          justify-content: flex-end;
+          width: auto;
+        }
+
+        li {
+          padding: 0.5rem 0;
+
+          &.button {
+            // padding-bottom: 1rem;
+            a.button {
+              margin: 0;
+            }
+          }
         }
       }
     }
   }
-}
 
+  a {
+    display: flex;
+    align-items: center;
+
+    img.logo {
+      height: 3rem;
+    }
+
+    svg {
+      width: 1.5rem;
+
+      &.left {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
 </style>
