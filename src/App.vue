@@ -1,6 +1,31 @@
 <template>
-  <router-view />
+  <body>
+    <transition name="fade">
+      <Loader v-if="isLoading" />
+    </transition>
+    <router-view v-show="!isLoading" @load="isLoading = false" />
+  </body>
 </template>
+
+<script>
+import Loader from '@/views/Loader.vue'
+
+export default {
+  data () {
+    return {
+      isLoading: true
+    }
+  },
+  methods: {
+    log () {
+      console.log('log')
+    }
+  },
+  components: {
+    Loader
+  }
+}
+</script>
 
 <style lang="scss">
 @font-face {
@@ -149,7 +174,7 @@ body * {
   box-sizing: border-box;
 }
 
-body > section:not(#hero) {
+body > div > section:not(#hero) {
   box-sizing: content-box;
 }
 
@@ -188,36 +213,6 @@ body > section:not(#hero) {
     transform: translateY(-20px);
     opacity: 0;
   }
-}
-
-div#loader {
-  position: fixed;
-  top: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--neutral100);
-
-  > div {
-    display: block;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-left-color: var(--primary500);
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    animation: spinner 1.2s linear infinite;
-  }
-}
-@keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 a.button {

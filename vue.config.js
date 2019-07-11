@@ -1,6 +1,7 @@
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
+  publicPath: '/new/',
   css: {
     loaderOptions: {
       sass: {

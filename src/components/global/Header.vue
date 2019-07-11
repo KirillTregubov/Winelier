@@ -27,9 +27,6 @@ export default {
   name: 'main-header',
   data () {
     return {
-      hiding: false,
-      sticky: false,
-      scrollPosition: 0,
       isMobileExpanded: false
     }
   },
