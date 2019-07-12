@@ -8,11 +8,9 @@ export default {
   async getMeta (data) {
     data.request = 'getMeta'
     return axios.post('https://winelier.com/new/api/request.php', data)
-    // setTimeout(() => {
-    //   return {
-    //     title: 'Title',
-    //     description: 'description'
-    //   }
-    // }, 500)
+  },
+  async getRow (data) {
+    data.request = 'getRow'
+    return axios.post('https://winelier.com/new/api/request.php', data)
   }
 }

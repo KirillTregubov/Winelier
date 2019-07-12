@@ -51,15 +51,22 @@ CREATE TABLE 'shipping_addresses' (
   modified_at DATETIME ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE 'featured_items' (
+CREATE TABLE `homepage` (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  description VARCHAR(255) NOT NULL,
   article_id INT NOT NULL,
   monthly_winery_ids VARCHAR(255) NOT NULL,
   popular_winery_ids VARCHAR(255) NOT NULL,
   modified_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE 'wineries' (
+CREATE TABLE `homepage_active` (
+  active_id INT NOT NULL PRIMARY KEY,
+  modified_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE `wineries` (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   manager_id VARCHAR(255),
   tier ENUM('VIP', 'Premium', 'Regular') NOT NULL DEFAULT 'Regular',
@@ -67,7 +74,7 @@ CREATE TABLE 'wineries' (
   email VARCHAR(100) NOT NULL,
   phone VARCHAR(15) NOT NULL,
   website VARCHAR(2083),
-  image BLOB NOT NULL,
+  image BLOB,
   description TEXT NOT NULL,
   street_address VARCHAR(255) NOT NULL,
   town VARCHAR(100) NOT NULL,

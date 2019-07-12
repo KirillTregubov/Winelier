@@ -19,4 +19,24 @@ if ($request == 'getMeta') {
   ]);
   exit;
 }
+
+if ($request == 'getRow') {
+  $table = $data->table;
+  $name = $data->name;
+
+  $userData = mysqli_query($connection, "SELECT * FROM ".$table." WHERE name = '".$name."' LIMIT 1");
+  $response = mysqli_fetch_assoc($userData);
+
+  if ($userData->num_rows === 1) {
+    echo json_encode([
+      'status' => 'success',
+      'content' => json_encode($response)
+    ]);
+  } else {
+    echo json_encode([
+      'status' => 'error'
+    ]);
+  }
+  exit;
+}
 ?>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import WineryPage from './components/pages/WineryPage.vue'
+import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
 
@@ -28,9 +29,16 @@ const router = new Router({
       }
     },
     {
-      path: '/winery/',
+      path: '/winery/:name',
       name: 'winery-page',
-      component: WineryPage
+      component: WineryPage,
+      props: true
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFound,
+      props: true
     }
     /*
     {

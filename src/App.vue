@@ -170,6 +170,10 @@ body, input {
   font-family: var(--font-stack);
 }
 
+body {
+  overscroll-behavior: none;
+}
+
 body * {
   box-sizing: border-box;
 }

@@ -1,65 +1,59 @@
 <template>
-  <Simple id="winery-page">
-    content
-  </Simple>
+  <NotFound v-if="!doesExist" :path="name"/>
+  <!-- Could make a specific not found for wineries and blog posts so that they can return to discovery -->
+  <Wrapper id="winery-page" v-else>
+    <h1>{{ winery.name }}</h1>
+  </Wrapper>
 </template>
 
 <script>
-import Simple from '@/views/Simple.vue'
 import Api from '@/services/Api.js'
+import store from '@/store.js'
+import Wrapper from '@/views/Wrapper.vue'
+import NotFound from '@/views/NotFound.vue'
 
 export default {
   name: 'winery-page',
-  components: {
-    Simple
+  data () {
+    return {
+      doesExist: false,
+      winery: null
+    }
+  },
+  props: ['name'],
+  methods: {
+    kebabToSentence (string) {
+      string = string.replace(/-/g, ' ').toLowerCase().split(' ').map(function (word) {
+        return word.replace(word[0], word[0].toUpperCase())
+      })
+      return string.join(' ')
+    },
+    setData (data) {
+      this.winery = data
+    }
   },
   beforeRouteEnter (to, from, next) {
     Api.getMeta({}).then((response) => {
-      console.log(response.data)
-      document.title = response.data.title
-
-      Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el))
-      let metaTags = JSON.parse(response.data.tags)
-      metaTags.map(tagDef => {
-        const tag = document.createElement('meta')
-        Object.keys(tagDef).forEach(key => {
-          tag.setAttribute(key, tagDef[key])
-        })
-        tag.setAttribute('data-vue-router-controlled', '')
-        return tag
-      }).forEach(tag => document.head.appendChild(tag))
-
+      response.data.url = to.fullPath
+      // response.data.tags = JSON.parse(response.data.tags)
+      store.dispatch('updateMeta', response.data)
       next()
-      // // Find the closest route with a title
-      // const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
-      // // Find the nearest route element with meta tags.
-      // const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
-      // // const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
-      // // If a route with a title was found, set the document (page) title to that value.
-      // if (nearestWithTitle) document.title = nearestWithTitle.meta.title
-      // // Remove any stale meta tags from the document using the key attribute we set below.
-      // Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el))
-      // Skip rendering meta tags if there are none.
-      // if (!nearestWithMeta) return next()
-      // nearestWithMeta.meta.metaTags.map(tagDef => {
-      //   const tag = document.createElement('meta')
-      //   Object.keys(tagDef).forEach(key => {
-      //     tag.setAttribute(key, tagDef[key])
-      //   })
-      //   tag.setAttribute('data-vue-router-controlled', '')
-      //   return tag
-      // }).forEach(tag => document.head.appendChild(tag))
-
-      // next()
     })
-    // called before the route that renders this component is confirmed.
-    // does NOT have access to `this` component instance,
-    // because it has not been created yet when this guard is called!
   },
-  mounted () {
-    setTimeout(() => {
+  created () {
+    Api.getRow({ table: 'wineries', name: this.kebabToSentence(this.$route.params.name) }).then((response) => {
+      if (response.data.status === 'success') {
+        this.winery = JSON.parse(response.data.content)
+        this.doesExist = true
+      } else {
+        console.log('error')
+      }
       this.$emit('load')
-    }, 100)
+    })
+  },
+  components: {
+    Wrapper,
+    NotFound
   }
 }
 </script>
