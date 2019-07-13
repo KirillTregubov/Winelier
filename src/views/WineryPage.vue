@@ -9,7 +9,7 @@
 <script>
 import Api from '@/services/Api.js'
 import store from '@/store.js'
-import Wrapper from '@/views/Wrapper.vue'
+import Wrapper from '@/components/global/Wrapper.vue'
 import NotFound from '@/views/NotFound.vue'
 
 export default {
@@ -27,9 +27,6 @@ export default {
         return word.replace(word[0], word[0].toUpperCase())
       })
       return string.join(' ')
-    },
-    setData (data) {
-      this.winery = data
     }
   },
   beforeRouteEnter (to, from, next) {

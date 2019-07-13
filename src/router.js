@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import WineryPage from './components/pages/WineryPage.vue'
+import Wineries from './views/Wineries.vue'
+import WineryPage from './views/WineryPage.vue'
 import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
@@ -27,6 +28,15 @@ const router = new Router({
           }
         ]
       }
+    },
+    {
+      path: '/wineries',
+      name: 'wineries',
+      component: Wineries
+    },
+    {
+      path: '/winery',
+      redirect: '/wineries'
     },
     {
       path: '/winery/:name',
