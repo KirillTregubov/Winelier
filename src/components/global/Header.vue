@@ -2,15 +2,15 @@
   <header id="header">
     <nav>
       <ul>
-        <li class="left mobile"><a href=""><img class="logo" src="@/assets/img/logo.png" alt="Winelier Logo"></a></li>
+        <li class="left mobile"><router-link to="/"><img class="logo" src="@/assets/img/logo.png" alt="Winelier Logo"></router-link></li>
         <li class="toggle mobile" @click="isMobileExpanded = !isMobileExpanded"><Icon :name="toggleName" /></li>
         <transition name="slide-down">
           <ul v-show="isMobileExpanded">
-            <li><a href="">Explore <Icon name="chevron-down" /></a></li>
-            <!-- <li><a href="">Events</a></li> -->
-            <li><a href="">Help <Icon name="chevron-down" /></a></li>
-            <li><a href="">Blog <Icon name="chevron-down" /></a></li>
-            <li><a href="">Shop <Icon name="chevron-down" /></a></li>
+            <li><a href="">Wineries</a></li>
+            <li><a href="">Blog</a></li>
+            <li><a href="">Events</a></li>
+            <li><a href="">Contact</a></li>
+            <!-- <li><a href="">Shop <Icon name="chevron-down" /></a></li> -->
             <li class="login"><a href=""><Icon name="user-circle" class="left" />Log In</a></li>
             <li class="button"><a class="button" href="">Add Listing</a></li>
           </ul>
@@ -108,10 +108,14 @@ export default {
         }
 
         @include tablet-landscape-up {
-          margin-left: 2rem;
+          margin-left: 3rem;
 
           &.login {
             margin-left: 5rem;
+          }
+
+          &.button {
+            margin-left: 2rem;
           }
         }
       }

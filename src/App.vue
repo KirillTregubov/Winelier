@@ -3,22 +3,22 @@
     <transition name="fade">
       <Loader v-if="isLoading" />
     </transition>
-    <router-view v-show="!isLoading" @load="isLoading = false" />
+    <router-view v-show="!isLoading" @load="load()" />
   </body>
 </template>
 
 <script>
-import Loader from '@/views/Loader.vue'
+import Loader from '@/components/global/Loader.vue'
 
 export default {
-  data () {
-    return {
-      isLoading: true
+  computed: {
+    isLoading () {
+      return this.$store.getters.loadingStatus
     }
   },
   methods: {
-    log () {
-      console.log('log')
+    load () {
+      this.$store.commit('endLoading')
     }
   },
   components: {

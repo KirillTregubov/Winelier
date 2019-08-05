@@ -13,10 +13,41 @@ ini_set('display_errors', 0);
 mysqli_query($connection,"SET time_zone='+00:00'");
 
 if ($request == 'getMeta') {
-  echo json_encode([
-    'title' => 'Title',
-    'tags' => json_encode(array(['description' => 'Description']))
-  ]);
+  $page = $data->page;
+
+  if ($page == 'winery-page') {
+    $name = $data->params;
+
+    $userData = mysqli_query($connection, "SELECT * FROM wineries WHERE name = '".$name."'");
+    $response = mysqli_fetch_assoc($userData);
+  
+    if ($userData->num_rows == 1) {
+      echo json_encode([
+        'status' => 'success',
+        'data' => json_encode($response)
+      ]);
+    } else {
+      echo json_encode([
+        'status' => 'database error',
+        'req' => "SELECT * FROM wineries WHERE name = '".$name."'"
+      ]);
+    }
+  } else {
+    $userData = mysqli_query($connection, "SELECT * FROM meta_tags WHERE page = '".$page."'");
+    $response = mysqli_fetch_assoc($userData);
+  
+    if ($userData->num_rows == 1) {
+      echo json_encode([
+        'status' => 'success',
+        'data' => json_encode($response)
+      ]);
+    } else {
+      echo json_encode([
+        'status' => 'database error',
+        'req' => "SELECT * FROM meta_tags WHERE page = '".$page."'"
+      ]);
+    }
+  }
   exit;
 }
 
@@ -27,7 +58,7 @@ if ($request == 'getRow') {
   $userData = mysqli_query($connection, "SELECT * FROM ".$table." WHERE name = '".$name."' LIMIT 1");
   $response = mysqli_fetch_assoc($userData);
 
-  if ($userData->num_rows === 1) {
+  if ($userData->num_rows == 1) {
     echo json_encode([
       'status' => 'success',
       'content' => json_encode($response)

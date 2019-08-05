@@ -5,25 +5,31 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-
+    isLoading: true
+  },
+  getters: {
+    loadingStatus: state => {
+      return state.isLoading
+    }
   },
   mutations: {
-
+    startLoading (state) {
+      state.isLoading = true
+    },
+    endLoading (state) {
+      state.isLoading = false
+    }
   },
   actions: {
     updateMeta ({ commit }, payload) {
-      document.title = payload.title
+      document.title = payload.title + ' - Winelier'
+
       Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el))
-      let metaTags = JSON.parse(payload.tags)
-      metaTags.map(tagDef => {
-        const tag = document.createElement('meta')
-        Object.keys(tagDef).forEach(key => {
-          tag.setAttribute('name', key)
-          tag.setAttribute('content', tagDef[key])
-        })
-        tag.setAttribute('data-vue-router-controlled', '')
-        return tag
-      }).forEach(tag => document.head.appendChild(tag))
+      const descriptionTag = document.createElement('meta')
+      descriptionTag.setAttribute('name', 'description')
+      descriptionTag.setAttribute('content', payload.description)
+      descriptionTag.setAttribute('data-vue-router-controlled', '')
+      document.head.appendChild(descriptionTag)
     }
   }
 })

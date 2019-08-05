@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import Api from '@/services/Api.js'
-import store from '@/store.js'
+// import Api from '@/services/Api.js'
+// import store from '@/store.js'
 import Wrapper from '@/components/global/Wrapper.vue'
 
 export default {
@@ -26,11 +26,11 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    Api.getMeta({}).then((response) => {
-      response.data.url = to.fullPath
-      store.dispatch('updateMeta', response.data)
-      next()
-    })
+    // Api.getMeta({}).then((response) => {
+    //   response.data.url = to.fullPath
+    //   store.dispatch('updateMeta', response.data)
+    next()
+    // })
   },
   created () {
     // Api.getRow({ table: 'wineries', name: this.kebabToSentence(this.$route.params.name) }).then((response) => {

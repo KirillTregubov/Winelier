@@ -1,7 +1,7 @@
 <template>
   <NotFound v-if="!doesExist" :path="name"/>
   <!-- Could make a specific not found for wineries and blog posts so that they can return to discovery -->
-  <Wrapper id="winery-page" v-else>
+  <Wrapper id="blog-article" v-else>
     <h1>{{ winery.name }}</h1>
   </Wrapper>
 </template>
@@ -12,7 +12,7 @@ import Wrapper from '@/components/global/Wrapper.vue'
 import NotFound from '@/views/NotFound.vue'
 
 export default {
-  name: 'winery-page',
+  name: 'blog-article',
   data () {
     return {
       doesExist: false,

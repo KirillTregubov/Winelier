@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Api from './services/Api.js'
+import store from './store.js'
 import Home from './views/Home.vue'
 import Wineries from './views/Wineries.vue'
 import WineryPage from './views/WineryPage.vue'
@@ -16,17 +18,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        title: 'Home Page - Winelier',
-        metaTags: [
-          {
-            name: 'description',
-            content: 'The home page of our example app.'
-          },
-          {
-            property: 'og:description',
-            content: 'The home page of our example app.'
-          }
-        ]
+        title: 'Home Page - Winelier'
       }
     },
     {
@@ -62,29 +54,27 @@ const router = new Router({
   ]
 })
 
-// // This callback runs before every route change, including on page load.
-// router.beforeEach((to, from, next) => {
-//   // Find the closest route with a title
-//   const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
-//   // Find the nearest route element with meta tags.
-//   const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
-//   // const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
-//   // If a route with a title was found, set the document (page) title to that value.
-//   if (nearestWithTitle) document.title = nearestWithTitle.meta.title
-//   // Remove any stale meta tags from the document using the key attribute we set below.
-//   Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el))
-//   // Skip rendering meta tags if there are none.
-//   if (!nearestWithMeta) return next()
-//   nearestWithMeta.meta.metaTags.map(tagDef => {
-//     const tag = document.createElement('meta')
-//     Object.keys(tagDef).forEach(key => {
-//       tag.setAttribute(key, tagDef[key])
-//     })
-//     tag.setAttribute('data-vue-router-controlled', '')
-//     return tag
-//   }).forEach(tag => document.head.appendChild(tag))
+function kebabToSentence (string) {
+  string = string.replace(/-/g, ' ').toLowerCase().split(' ').map(function (word) {
+    return word.replace(word[0], word[0].toUpperCase())
+  })
+  return string.join(' ')
+}
 
-//   next()
-// })
+router.beforeEach((to, from, next) => {
+  store.commit('startLoading')
+  let params
+  if (to.name === 'winery-page') params = kebabToSentence(to.params.name)
+  Api.getMeta({ page: to.name, params: params }).then((response) => {
+    if (response.data.status === 'success') {
+      let data = JSON.parse(response.data.data)
+      if (to.name === 'winery-page') data.title = data.name
+      store.dispatch('updateMeta', data)
+    } else {
+      console.log(response.data)
+    }
+    next()
+  })
+})
 
 export default router

@@ -1,5 +1,5 @@
 <template>
-  <div id="home" data-aos="ease" data-aos-offset="0">
+  <div id="home">
     <Header></Header>
     <section id="hero" class="bg-image" :style="computeImg('hero')">
       <div class="content">
@@ -12,7 +12,7 @@
       </div>
     </section>
     <div class="fade" aria-hidden="true"></div>
-    <section id="search" data-aos="ease" data-aos-offset="0">
+    <section id="search">
       <div class="content">
         <div class="input-group">
           <div class="input wide left">
@@ -34,7 +34,7 @@
           <Icon name="search" /> Search</a>
       </div>
     </section>
-    <section id="content" data-aos="ease" data-aos-offset="0">
+    <section id="content">
       <div class="province-container">
         <h2>Or browse by province</h2>
         <div class="list">
@@ -127,6 +127,7 @@
 </template>
 
 <script>
+// import Api from '@/services/Api.js'
 import Header from '@/components/global/Header.vue'
 import Footer from '@/components/global/Footer.vue'
 import Icon from '@/components/icons/Icon.vue'
