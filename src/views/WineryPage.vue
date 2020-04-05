@@ -7,7 +7,7 @@
       <Preloader type="hero-h1" v-if="!winery" />
       <h1 v-else>{{ winery.name }}</h1>
       <!-- <h1>Willow Winery</h1> -->
-      <h2>Located in 
+      <h2>Located in
         <!-- <content-loader v-if="!winery"
         :speed="2"
         :animate="true"

@@ -24,8 +24,8 @@ export default {
       if (this.origin === 'local') {
         let img = this.src.replace(/ /g, '')
         return `${require(`@/assets/img/${img}.jpg`)}`
-      } else if (this.origin === 'upload') return 'https://winelier.com/new/uploads/' + this.src + '.jpg';
-      else if (this.origin === 'foreign') return this.src;
+      } else if (this.origin === 'upload') return 'https://winelier.com/new/uploads/' + this.src + '.jpg'
+      else if (this.origin === 'foreign') return this.src
       else return ''
     }
   },

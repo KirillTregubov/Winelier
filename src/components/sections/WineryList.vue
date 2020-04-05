@@ -22,7 +22,7 @@
 
 <script>
 import Icon from '@/components/icons/Icon.vue'
-import ImageLoader from '@/components/global/ImageLoader.vue'
+// import ImageLoader from '@/components/global/ImageLoader.vue'
 
 export default {
   name: 'winery-list',
@@ -47,8 +47,8 @@ export default {
     }
   },
   components: {
-    Icon,
-    ImageLoader
+    Icon
+    // ImageLoader
   }
 }
 </script>
