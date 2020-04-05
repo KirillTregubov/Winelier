@@ -59,10 +59,23 @@ if ($request == 'getRow') {
   $response = mysqli_fetch_assoc($userData);
 
   if ($userData->num_rows == 1) {
-    echo json_encode([
-      'status' => 'success',
-      'content' => json_encode($response)
-    ]);
+    if ($table == 'wineries') {
+      $userData2 = mysqli_query($connection, "SELECT uploaded_images.filename, uploaded_images.alt FROM uploaded_images, winery_images WHERE uploaded_images.id = winery_images.image_id AND winery_images.winery_id = ".$response["id"]);
+      $response2 = array();
+      while($row = mysqli_fetch_assoc($userData2)){
+          $response2[] = $row;
+      }
+      echo json_encode([
+        'status' => 'success',
+        'content' => json_encode($response),
+        'images' => json_encode($response2)
+      ]);
+    } else {
+      echo json_encode([
+        'status' => 'success',
+        'content' => json_encode($response)
+      ]);
+    }
   } else {
     echo json_encode([
       'status' => 'error'

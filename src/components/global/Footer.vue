@@ -57,7 +57,7 @@
     </div>
     <div class="secondary content">
       <div class="legal">
-        © 2019 Winelier. All rights reserved. Privacy Policy and Terms of Use. Design by Kirill Tregubov.
+        © 2019 Winelier. All rights reserved. Privacy Policy and Terms of Use.
       </div>
       <div class="back" v-scroll-to="'#home'">
         <Icon name="arrow-thick-up" />

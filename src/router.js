@@ -2,10 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Api from './services/Api.js'
 import store from './store.js'
-import Home from './views/Home.vue'
-import Wineries from './views/Wineries.vue'
-import WineryPage from './views/WineryPage.vue'
-import NotFound from './views/NotFound.vue'
 
 Vue.use(Router)
 
@@ -16,7 +12,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: () => import('./views/Home.vue'),
       meta: {
         title: 'Home Page - Winelier'
       }
@@ -24,7 +20,7 @@ const router = new Router({
     {
       path: '/wineries',
       name: 'wineries',
-      component: Wineries
+      component: () => import('./views/Wineries.vue')
     },
     {
       path: '/winery',
@@ -33,13 +29,18 @@ const router = new Router({
     {
       path: '/winery/:name',
       name: 'winery-page',
-      component: WineryPage,
+      component: () => import('./views/WineryPage.vue'),
       props: true
+    },
+    {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('./views/Blog.vue')
     },
     {
       path: '*',
       name: '404',
-      component: NotFound,
+      component: () => import('./views/NotFound.vue'),
       props: true
     }
     /*
@@ -71,6 +72,7 @@ router.beforeEach((to, from, next) => {
       if (to.name === 'winery-page') data.title = data.name
       store.dispatch('updateMeta', data)
     } else {
+      console.log('Error loading meta')
       console.log(response.data)
     }
     next()

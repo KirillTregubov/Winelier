@@ -49,12 +49,12 @@ Ontario
 {name: "Galucci Winery", address: "13204 9th Line, Stouffville, ON", phone: "+1 (905) 640-0909", email: "annemariepiro@gallucciwinery.com", website: "https://www.gallucciwinery.com/"}
 {name: "Dark Horse Estate Winery", address: "70665 B Line, Grand Bend, Ontario", phone: "+1 (519) 238-5000", email: "info@darkhorseestatewinery.com", website: "http://www.darkhorseestatewinery.com/"}
 {name: "CREW Colchester Ridge Estate Winery", address: "108 County Road 50 East, Harrow, Ontario", phone: "+1 (519) 738-9800", email: "info@colchesterridge.com", website: "http://www.colchesterridge.com/"}
-{name: "Cooper’s Hawk Vineyards", address: "1425 Iler Road Harrow, Ontario", phone: "+1 (519) 738-4295", email: "info@coopershawkvineyards.com", website: "https://coopershawkvineyards.com/"}
+{name: "Cooperï¿½s Hawk Vineyards", address: "1425 Iler Road Harrow, Ontario", phone: "+1 (519) 738-4295", email: "info@coopershawkvineyards.com", website: "https://coopershawkvineyards.com/"}
 {name: "Colio Estate Wines", address: "1 Colio Drive, Harrow, Ontario", phone: "+1 (800) 265-1322", email: "cheers@coliowinery.com", website: "http://www.coliowinery.com/"}
 {name: "Coffin Ridge Boutique Winery", address: "599448 2nd Concession North, Annan, Ontario", phone: "+1 (519) 371-9565", email: "kiri@coffinridge.ca", website: "https://www.coffinridge.ca/"}
 {name: "Closson Chase", address: "629 Closson Road, Hillier, Ontario", phone: "+1 (888) 201-2300", email: "info@clossonchase.com", website: "http://clossonchase.com/"}
 {name: "Casa Dea Estates Winery", address: "1186 Greer Road, Wellington, Ontario", phone: "+1 (866) 578-3445", email: "info@casadeaestates.com", website: "https://casadeaestates.com/"}
-{name: "By Chadsey’s Cairns Winery & Vineyard", address: "17432 Loyalist Parkway, Wellington, Ontario", phone: "+1 (613) 399-2992", email: "info@bccwinery.com", website: "http://bychadseyscairns.com/"}
+{name: "By Chadseyï¿½s Cairns Winery & Vineyard", address: "17432 Loyalist Parkway, Wellington, Ontario", phone: "+1 (613) 399-2992", email: "info@bccwinery.com", website: "http://bychadseyscairns.com/"}
 {name: "Burning Kiln Winery", address: "1709 Front Road, St. Williams, Ontario", phone: "+1 (519) 586-9858", email: "info@burningkilnwinery.ca", website: "http://www.burningkilnwinery.ca/"}
 {name: "Broken Stone Winery", address: "524 Closson Road,  Hillier, Ontario", phone: "+1 (343) 600-3993", email: "info@brokenstone.ca", website: "https://www.brokenstonewinery.com/"}
 {name: "Black Prince Winery", address: "13370 Loyalist Parkway, Picton, Ontario", phone: "+1 (866) 470-9463", email: "info@blackprincewinery.com", website: "http://www.blackprincewinery.com"}

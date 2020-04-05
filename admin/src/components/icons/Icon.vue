@@ -7,6 +7,7 @@
     <CalendarDate v-else-if="name === 'calendar-date'" />
     <Check v-else-if="name === 'check'" />
     <ChevronDown v-else-if="name === 'chevron-down'" />
+    <ChevronLeft v-else-if="name === 'chevron-left'" />
     <ChevronLeftCircle v-else-if="name === 'chevron-left-circle'" />
     <ChevronRight v-else-if="name === 'chevron-right'" />
     <ChevronUp v-else-if="name === 'chevron-up'" />
@@ -30,6 +31,7 @@ import BookOpen from '@/components/icons/book-open.vue'
 import CalendarDate from '@/components/icons/calendar-date.vue'
 import Check from '@/components/icons/check.vue'
 import ChevronDown from '@/components/icons/chevron-down.vue'
+import ChevronLeft from '@/components/icons/chevron-left.vue'
 import ChevronLeftCircle from '@/components/icons/chevron-left-circle.vue'
 import ChevronRight from '@/components/icons/chevron-right.vue'
 import ChevronUp from '@/components/icons/chevron-up.vue'
@@ -60,6 +62,7 @@ export default {
     Check,
     ChevronDown,
     ChevronLeftCircle,
+    ChevronLeft,
     ChevronRight,
     ChevronUp,
     CloseCircle,

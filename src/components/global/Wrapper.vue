@@ -1,7 +1,9 @@
 <template>
   <div>
     <Header></Header>
-    <slot />
+    <div :id="contentID">
+      <slot />
+    </div>
     <Footer :articles="latestArticles" />
   </div>
 </template>
@@ -32,9 +34,32 @@ export default {
       ]
     }
   },
+  props: {
+    contentID: {
+      type: String,
+      default: ''
+    }
+  },
   components: {
     Header,
     Footer
   }
 }
 </script>
+
+<style lang="scss">
+section {
+  padding: 2rem 1.5rem;
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+
+  @include tablet-landscape-up {
+    padding: 2rem 4rem;
+  }
+
+  @include desktop-up {
+    padding: 2rem 6rem;
+  }
+}
+</style>

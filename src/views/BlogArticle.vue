@@ -1,7 +1,7 @@
 <template>
   <NotFound v-if="!doesExist" :path="name"/>
   <!-- Could make a specific not found for wineries and blog posts so that they can return to discovery -->
-  <Wrapper id="blog-article" v-else>
+  <Wrapper contentID="blog-article" v-else>
     <h1>{{ winery.name }}</h1>
   </Wrapper>
 </template>
