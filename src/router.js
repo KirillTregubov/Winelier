@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Api from './services/Api.js'
-import store from './store.js'
+// import Api from './services/Api.js'
+// import store from './store.js'
 
 Vue.use(Router)
 
@@ -55,6 +55,7 @@ const router = new Router({
   ]
 })
 
+/*
 function kebabToSentence (string) {
   string = string.replace(/-/g, ' ').toLowerCase().split(' ').map(function (word) {
     return word.replace(word[0], word[0].toUpperCase())
@@ -64,19 +65,20 @@ function kebabToSentence (string) {
 
 router.beforeEach((to, from, next) => {
   store.commit('startLoading')
-  let params
-  if (to.name === 'winery-page') params = kebabToSentence(to.params.name)
-  Api.getMeta({ page: to.name, params: params }).then((response) => {
-    if (response.data.status === 'success') {
-      let data = JSON.parse(response.data.data)
-      if (to.name === 'winery-page') data.title = data.name
-      store.dispatch('updateMeta', data)
-    } else {
-      console.log('Error loading meta')
-      console.log(response.data)
-    }
-    next()
-  })
+  // let params
+  // if (to.name === 'winery-page') params = kebabToSentence(to.params.name)
+  // Api.getMeta({ page: to.name, params: params }).then((response) => {
+  //   if (response.data.status === 'success') {
+  //     let data = JSON.parse(response.data.data)
+  //     if (to.name === 'winery-page') data.title = data.name
+  //     store.dispatch('updateMeta', data)
+  //   } else {
+  //     console.log('Error loading meta')
+  //     console.log(response.data)
+  //   }
+  //   next()
+  // })
 })
+*/
 
 export default router

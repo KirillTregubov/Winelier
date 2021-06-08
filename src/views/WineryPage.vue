@@ -4,10 +4,10 @@
   <!-- Could make a specific not found for wineries and blog posts so that they can return to discovery -->
   <Wrapper contentID="winery-page" :contentName="this.kebabToSentence(this.$route.params.name)" :notFound="notFound">
     <Hero type="nohead" :containsImage="true" image="winery">
-      <transition name="fade" mode="out-in">
-        <Preloader type="hero-h1" v-if="!winery" />
-        <h1 v-else>{{ winery.name }}</h1>
-      </transition>
+      <!-- <transition name="fade" mode="out-in"> -->
+        <!-- <Preloader type="hero-h1" v-if="!winery" /> -->
+        <h1>{{ winery.name }}</h1>
+      <!-- </transition> -->
       <!-- <h1>Willow Winery</h1> -->
       <h2>Located in
         <!-- <content-loader v-if="!winery"
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import Api from '@/services/Api.js'
+// import Api from '@/services/Api.js'
 import Wrapper from '@/components/global/Wrapper.vue'
 import Icon from '@/components/icons/Icon.vue'
 import Hero from '@/components/sections/Hero.vue'
@@ -158,6 +158,24 @@ export default {
   },
   created () {
     this.$emit('load')
+    this.winery = {
+      'id': '1',
+      'manager_id': null,
+      'tier': 'Regular',
+      'name': 'Willow Springs Winery',
+      'email': 'info@willowspringswinery.ca',
+      'phone': '19056429463',
+      'website': 'http://willowspringswinery.com/',
+      'description': 'Willow Springs Winery, situated atop the geographical treasure known as the Oak Ridges Moraine complete with the renowned 11-acres Testa Vineyard, is a wine and event destination not to be missed. Among all the wineries with vineyards in York Region, Willow Springs is the first winery to receive VQA Ontario certification. The winery utilizes excellent growing and soil conditions to produce truly outstanding quality wines. It provides a beautiful backdrop for all family, corporate and group functions. The Testa pavilion, with its breathtaking views of the vineyard, is the perfect setting for all occasions. From simple picnic lunches in the vineyard to lavish weddings in the beautiful pavilion.',
+      'street_address': '5572 Bethesda Road',
+      'town': 'Stouffville',
+      'province': 'Ontario',
+      'country': 'Canada',
+      'postal': 'L4A 7X3',
+      'created_at': '2019-07-11 23:47:44',
+      'modified_at': '2019-08-14 12:50:05'
+    }
+    /*
     Api.getRow({ table: 'wineries', name: this.kebabToSentence(this.$route.params.name) }).then((response) => {
       console.log(response.data)
       if (response.data.status === 'success') {
@@ -168,10 +186,11 @@ export default {
         // this.winery.images = JSON.parse('[{"filename":"5d5d9d14bb5da","alt":"image"}]')//response.data.images)
       } else {
         console.log('error')
-        this.notFound = true
+        // this.notFound = true
       }
       // this.$emit('load')
     })
+    */
   },
   components: {
     Wrapper,
