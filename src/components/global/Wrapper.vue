@@ -2,7 +2,12 @@
   <div>
     <Header></Header>
     <div :id="contentID">
-      <slot />
+      <transition name="fade" mode="out-in">
+        <NotFound v-if="notFound" :path="contentName" />
+        <div v-else>
+          <slot />
+        </div>
+      </transition>
     </div>
     <Footer :articles="latestArticles" />
   </div>
@@ -11,10 +16,12 @@
 <script>
 import Header from '@/components/global/Header.vue'
 import Footer from '@/components/global/Footer.vue'
+import NotFound from '@/views/NotFound.vue'
 
 export default {
   data () {
     return {
+      // notFound: false,
       latestArticles: [
         {
           title: 'Fourth of July Fare: Slow-Cooked Ribs and Stone Fruit Salad',
@@ -38,11 +45,19 @@ export default {
     contentID: {
       type: String,
       default: ''
+    },
+    contentName: {
+      type: String,
+      default: ''
+    },
+    notFound: {
+      type: Boolean
     }
   },
   components: {
     Header,
-    Footer
+    Footer,
+    NotFound
   }
 }
 </script>

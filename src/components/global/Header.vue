@@ -22,12 +22,12 @@
         <transition name="slide-down">
           <ul v-show="isMobileExpanded">
             <li><router-link to="/wineries">Wineries</router-link></li>
-            <li><router-link to="/blog">Blog</router-link></li>
+            <!-- <li><router-link to="/blog">Blog</router-link></li> -->
             <!-- <li><a href="">Events</a></li> -->
-            <li><a href="">Contact</a></li>
+            <!-- <li><a href="">Contact</a></li> -->
             <!-- <li><a href="">Shop <Icon name="chevron-down" /></a></li> -->
-            <li class="login"><a href=""><Icon name="user-circle" class="left" />Log In</a></li>
-            <li class="button"><a class="button" href="">Add Listing</a></li>
+            <li class="login"><a><Icon name="user-circle" class="left" />Log In</a></li>
+            <li class="button"><a class="button">Add Listing</a></li>
           </ul>
         </transition>
       </ul>

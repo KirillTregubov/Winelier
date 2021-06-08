@@ -2,10 +2,12 @@
   <!-- <NotFound v-if="!doesExist" :path="name"/> -->
   <!-- redirect to * instead of having it embeded in the page -->
   <!-- Could make a specific not found for wineries and blog posts so that they can return to discovery -->
-  <Wrapper contentID="winery-page">
+  <Wrapper contentID="winery-page" :contentName="this.kebabToSentence(this.$route.params.name)" :notFound="notFound">
     <Hero type="nohead" :containsImage="true" image="winery">
-      <Preloader type="hero-h1" v-if="!winery" />
-      <h1 v-else>{{ winery.name }}</h1>
+      <transition name="fade" mode="out-in">
+        <Preloader type="hero-h1" v-if="!winery" />
+        <h1 v-else>{{ winery.name }}</h1>
+      </transition>
       <!-- <h1>Willow Winery</h1> -->
       <h2>Located in
         <!-- <content-loader v-if="!winery"
@@ -19,15 +21,20 @@
       >
         <rect x="0" y="0" rx="1" ry="1" width="40" height="5" />
       </content-loader> -->
-      <Preloader type="hero-h2" v-if="!winery" />
-      <span v-else>{{ computedLocation }}</span></h2>
+      <transition name="fade" mode="out-in">
+        <Preloader type="hero-h2" v-if="!winery" />
+        <span v-else>{{ computedLocation }}</span>
+      </transition>
+      </h2>
     </Hero>
     <section id="content">
       <div class="about-container">
         <h1>Our Winery</h1>
         <div class="description">
-          <Preloader type="paragraph" v-if="!winery" />
-          <p v-else>{{ winery.description }}</p>
+          <transition name="fade" mode="out-in">
+            <Preloader type="paragraph" v-if="!winery" />
+            <p v-else>{{ winery.description }}</p>
+          </transition>
         </div>
         <!-- <div class="info-cards">
           <div class="info-card">
@@ -47,21 +54,23 @@
             <div class="content">{{ winery.website }}</div>
           </div>
         </div> -->
-      <div class="media-container" v-if="winery && winery.images && winery.images.length > 0">
-        <h1>Gallery</h1>
-        <img :src="'https://winelier.com/new/uploads/' + winery.images[0].filename + '.jpg'" :alt="winery.images[0].alt" class="single" v-if="winery.images.length === 1">
-        <carousel v-if="winery.images.length > 1">
-          <slide class="image-gallery" :key="image.id" v-for="image in winery.images">
-            <img :src="'https://winelier.com/new/uploads/' + winery.images[0].filename + '.jpg'" :alt="winery.images[0].alt">
-          </slide>
-          <template v-slot:prevButton>
-            <Icon name="chevron-left" />
-          </template>
-          <template v-slot:nextButton>
-            <Icon name="chevron-right" />
-          </template>
-        </carousel>
-      </div>
+      <transition name="scale-up">
+        <div class="media-container" v-if="winery && winery.images && winery.images.length > 0">
+          <h1>Gallery</h1>
+          <img :src="'https://winelier.com/new/uploads/' + winery.images[0].filename + '.jpg'" :alt="winery.images[0].alt" class="single" v-if="winery.images.length === 1">
+          <carousel v-if="winery.images.length > 1">
+            <slide class="image-gallery" :key="image.id" v-for="image in winery.images">
+              <img :src="'https://winelier.com/new/uploads/' + winery.images[0].filename + '.jpg'" :alt="winery.images[0].alt">
+            </slide>
+            <template v-slot:prevButton>
+              <Icon name="chevron-left" />
+            </template>
+            <template v-slot:nextButton>
+              <Icon name="chevron-right" />
+            </template>
+          </carousel>
+        </div>
+      </transition>
       <!-- change the buttons to Icons and make them into overlay (create custom element copy code to accomplish this, slots for icon) -->
       <div class="contact-container">
         <h1>Our Info</h1>
@@ -101,7 +110,6 @@ import Api from '@/services/Api.js'
 import Wrapper from '@/components/global/Wrapper.vue'
 import Icon from '@/components/icons/Icon.vue'
 import Hero from '@/components/sections/Hero.vue'
-// import NotFound from '@/views/NotFound.vue'
 // import { ContentLoader } from 'vue-content-loader';
 import Preloader from '@/components/global/Preloader.vue'
 
@@ -109,7 +117,7 @@ export default {
   name: 'winery-page',
   data () {
     return {
-      doesExist: false,
+      notFound: false,
       winery: null
     }
   },
@@ -155,13 +163,12 @@ export default {
       if (response.data.status === 'success') {
         setTimeout(() => {
           this.winery = JSON.parse(response.data.content)
-          // this.winery.images = JSON.parse(response.data.images)
-        }, 2000)
-
+          this.winery.images = JSON.parse(response.data.images)
+        }, 1000)
         // this.winery.images = JSON.parse('[{"filename":"5d5d9d14bb5da","alt":"image"}]')//response.data.images)
-        // this.doesExist = true
       } else {
         console.log('error')
+        this.notFound = true
       }
       // this.$emit('load')
     })
@@ -183,6 +190,11 @@ export default {
 div.about-container {
   > div:not(:last-child) {
     margin-bottom: 1.5rem;
+  }
+
+  p {
+    font-size: var(--font-md);
+    line-height: 1.2;
   }
 }
 

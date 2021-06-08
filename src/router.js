@@ -32,11 +32,11 @@ const router = new Router({
       component: () => import('./views/WineryPage.vue'),
       props: true
     },
-    {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('./views/Blog.vue')
-    },
+    // {
+    //   path: '/blog',
+    //   name: 'blog',
+    //   component: () => import('./views/Blog.vue')
+    // },
     {
       path: '*',
       name: '404',

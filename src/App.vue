@@ -203,11 +203,33 @@ section#content {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.25s;
 }
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.scale-up-enter-active, .scale-up-leave-active {
+  // transition: opacity 0.5s;
+  // transition-delay: 0.2s;
+  animation: scale-up-ver-center 0.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation-delay: 0.25s;
+}
+
+.scale-up-enter, .scale-up-leave-to {
+  opacity: 0;
+}
+
+@keyframes scale-up-ver-center {
+  0% {
+            transform: scaleY(0.4);
+            opacity: 0;
+  }
+  100% {
+            transform: scaleY(1);
+            opacity: 100;
+  }
 }
 
 // .slide-down-enter-active {

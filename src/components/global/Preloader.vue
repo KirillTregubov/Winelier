@@ -1,26 +1,45 @@
 <template>
-  <content-loader
-    :speed="2"
-    :animate="true"
-    :width="computedWidth"
-    :height="computedHeight"
-    :primaryColor="computedPrimaryColor"
-    :secondaryColor="computedSecondaryColor"
-    :class="type"
-  >
-  <!-- hsl(214, 15%, 91%) hsl(211, 13%, 65%) hsl(210, 16%, 82%)-->
-    <template v-if="type === 'paragraph'">
-      <rect x="0" y="0" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
-      <rect x="0" y="0.75" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
-      <rect x="0" y="1.5" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
-      <rect x="0" y="2.25" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
-      <rect x="0" y="3" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth * 0.40" :height="0.5" />
-    </template>
-    <!-- <rect v-if="type === 'paragraph'" x="0" y="0.1" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight / 4" />
-    <rect v-if="type === 'paragraph'" x="0" y="0.3" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight / 4" /> -->
-    <rect v-else-if="type === 'base'" x="0" y="0" width="100%" height="100%" />
-    <rect v-else x="0" y="0" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight" />
-  </content-loader>
+  <span>
+    <content-loader
+      :speed="2"
+      :animate="true"
+      :width="computedWidth"
+      :height="9"
+      :primaryColor="computedPrimaryColor"
+      :secondaryColor="computedSecondaryColor"
+      :class="type + '-mobile'"
+      v-if="type === 'paragraph'">
+      <template>
+        <rect x="0" y="0" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="1.15" />
+        <rect x="0" y="1.50" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="1.15" />
+        <rect x="0" y="3" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="1.15" />
+        <rect x="0" y="4.50" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="1.15" />
+        <rect x="0" y="6" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="1.15" />
+        <rect x="0" y="7.50" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth * 0.40" :height="1.15" />
+      </template>
+    </content-loader>
+    <content-loader
+      :speed="2"
+      :animate="true"
+      :width="computedWidth"
+      :height="computedHeight"
+      :primaryColor="computedPrimaryColor"
+      :secondaryColor="computedSecondaryColor"
+      :class="type">
+    <!-- hsl(214, 15%, 91%) hsl(211, 13%, 65%) hsl(210, 16%, 82%)-->
+      <template v-if="type === 'paragraph'">
+        <rect x="0" y="0" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
+        <rect x="0" y="0.75" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
+        <rect x="0" y="1.5" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
+        <rect x="0" y="2.25" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth" :height="0.5" />
+        <rect x="0" y="3" :rx="0.5*0.10" :ry="0.5*0.10" :width="computedWidth * 0.40" :height="0.5" />
+      </template>
+      <!-- <rect v-if="type === 'paragraph'" x="0" y="0.1" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight / 4" />
+      <rect v-if="type === 'paragraph'" x="0" y="0.3" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight / 4" /> -->
+      <rect v-else-if="type === 'base'" x="0" y="0" width="100%" height="100%" />
+      <rect v-else x="0" y="0" :rx="computedHeight*0.10" :ry="computedHeight*0.10" :width="computedWidth" :height="computedHeight" />
+    </content-loader>
+  </span>
 </template>
 
 <script>
@@ -39,7 +58,7 @@ export default {
     computedHeight () {
       if (this.type === 'base') return 2
       else if (this.type === 'hero-h1') return 5
-      else if (this.type === 'hero-h2') return 5
+      else if (this.type === 'hero-h2') return 4
       else if (this.type === 'paragraph') return 3.75
       else return 0
     },
@@ -94,7 +113,17 @@ export default {
   height: 1rem;
 }
 
-.paragraph {
-  // height: 4rem;
+.paragraph-mobile + .paragraph {
+  display: none;
+}
+
+@include tablet-portrait-up {
+  .paragraph-mobile {
+    display: none;
+
+    + .paragraph {
+      display: inline;
+    }
+  }
 }
 </style>
